@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BF Exam Guide</title>
+<style>
+:root{
+  --bg:#fbfaf7; --card:#ffffff; --ink:#1d1d1f; --muted:#5f6368; --line:#e4e1da;
+  --accent:#b4441c; --accent-soft:#fbe9e1; --blue:#1f5fa8; --blue-soft:#e6eef9;
+  --green:#1d7a46; --green-soft:#e3f3e9; --amber:#8a5a00; --amber-soft:#fdf2d8;
+  --code:#f3f1ec;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141414; --card:#1d1d1d; --ink:#ececec; --muted:#a3a3a3; --line:#333;
+    --accent:#f08a5d; --accent-soft:#3a2419; --blue:#7fb0ef; --blue-soft:#1a2738;
+    --green:#6fcf97; --green-soft:#16291e; --amber:#f2c063; --amber-soft:#2e2512; --code:#262626;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141414; --card:#1d1d1d; --ink:#ececec; --muted:#a3a3a3; --line:#333;
+  --accent:#f08a5d; --accent-soft:#3a2419; --blue:#7fb0ef; --blue-soft:#1a2738;
+  --green:#6fcf97; --green-soft:#16291e; --amber:#f2c063; --amber-soft:#2e2512; --code:#262626;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.layout{display:grid;grid-template-columns:260px 1fr;max-width:1280px;margin:0 auto}
+nav{position:sticky;top:0;height:100vh;overflow:auto;padding:24px 16px;border-right:1px solid var(--line);font-size:14px}
+nav h2{font-size:15px;margin:0 0 12px}
+nav a{display:block;color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:6px}
+nav a:hover{background:var(--accent-soft);color:var(--ink)}
+nav .tools{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+button{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+main{padding:32px 40px 80px;min-width:0}
+h1{font-size:30px;line-height:1.2;margin:0 0 6px}
+h2.sec{font-size:24px;margin:56px 0 4px;padding-top:12px;border-top:3px solid var(--accent)}
+h3{font-size:19px;margin:28px 0 8px}
+h4{font-size:16px;margin:18px 0 6px}
+p{margin:8px 0}
+.sub{color:var(--muted);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid2>.card,.grid3>.card{margin:0}
+.box{border-left:4px solid var(--blue);background:var(--blue-soft);padding:12px 14px;border-radius:0 10px 10px 0;margin:14px 0}
+.ans{border-left:4px solid var(--green);background:var(--green-soft);padding:12px 14px;border-radius:0 10px 10px 0;margin:14px 0}
+.mem{border-left:4px solid var(--amber);background:var(--amber-soft);padding:10px 14px;border-radius:0 10px 10px 0;margin:14px 0}
+.warn{border-left:4px solid var(--accent);background:var(--accent-soft);padding:10px 14px;border-radius:0 10px 10px 0;margin:14px 0}
+.box b:first-child,.ans b:first-child,.mem b:first-child,.warn b:first-child{display:inline-block;margin-bottom:2px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.t3{background:var(--accent);color:#fff}
+.t2{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue)}
+.t1{background:var(--code);color:var(--muted);border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--code)}
+.tw{overflow-x:auto}
+code,.f{font-family:Consolas,"SF Mono",Menlo,monospace;background:var(--code);padding:1px 6px;border-radius:5px;font-size:14px}
+ul,ol{padding-left:22px;margin:6px 0}
+li{margin:3px 0}
+.k{font-weight:700;color:var(--accent)}
+.small{font-size:13.5px;color:var(--muted)}
+.legend span{margin-right:12px}
+#cheat{font-size:12.5px;line-height:1.35}
+#cheat .cg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+#cheat .cg div{border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--card)}
+#cheat b{color:var(--accent)}
+#cheat ul{padding-left:14px;margin:2px 0}
+#cheat li{margin:0}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  nav{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}
+  main{padding:20px 16px 60px}
+  .grid2,.grid3,#cheat .cg{grid-template-columns:1fr}
+}
+@media print{
+  nav{display:none}
+  .layout{display:block}
+  main{padding:0}
+  body{background:#fff;color:#000}
+  .card,.box,.ans,.mem,.warn{break-inside:avoid}
+  body.cheat-only main>*:not(#cheat){display:none!important}
+  body.cheat-only #cheat{font-size:9.5px}
+  body.cheat-only h2.sec{margin-top:0}
+}
+@page{size:A4;margin:10mm}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav>
+  <h2>BF Exam Guide</h2>
+  <a href="#pattern">0. Exam pattern decoded</a>
+  <a href="#fin">1. Finance ratios (Section I)</a>
+  <a href="#bcase">2. Business case & investment math</a>
+  <a href="#horizon">↳ 2025 Case 1 model answers</a>
+  <a href="#strategy">3. Strategy & Five Forces</a>
+  <a href="#apex">↳ 2025 Case 2 model answers</a>
+  <a href="#ccpd">4. Customer-centric product design</a>
+  <a href="#bhasha">↳ 2025 Case 3 model answers</a>
+  <a href="#quality">5. Quality management</a>
+  <a href="#vendor">6. Vendor management & contracts</a>
+  <a href="#decision">7. Decision making under uncertainty</a>
+  <a href="#vuca">8. Leadership in a VUCA world</a>
+  <a href="#mgmt">9. Intro to management</a>
+  <a href="#venture">10. Innovation → venture</a>
+  <a href="#gaps">10b. Gap-fillers (mini-cases)</a>
+  <a href="#which">11. Which framework, when?</a>
+  <a href="#cheat">12. Last-hour revision sheet</a>
+  <div class="tools">
+    <button onclick="printCheat()">Print revision sheet only</button>
+    <button onclick="window.print()">Print whole guide</button>
+    <button onclick="toggleTheme()">Light / dark</button>
+  </div>
+</nav>
+
+<main>
+<h1>Business Fundamentals: Final Exam Guide</h1>
+<p class="sub">Built from the 2025 end-semester paper and every deck in the folder. Only exam-relevant concepts, in plain language.</p>
+<p class="legend small"><span class="tag t3">ASKED 2025</span> came in last year's paper &nbsp; <span class="tag t2">LIKELY</span> strong case material &nbsp; <span class="tag t1">QUICK</span> one-line mention is enough</p>
+
+<!-- ================= 0 ================= -->
+<h2 class="sec" id="pattern">0. Exam pattern decoded</h2>
+<div class="warn"><b>2026 format update from the TAs</b>
+<ul>
+<li><b>Closed book: no sheets allowed.</b> Last year allowed one A4 sheet; this year you can't carry anything. Every formula, mnemonic and framework has to be in your head.</li>
+<li><b>All case/scenario-based, covering every module from start to end.</b> Don't skip any deck. Finance ratios may come <i>inside</i> a case rather than as a separate section, so still learn the formulas.</li>
+<li>Last year's paper (below) is still the best guide to <i>how</i> questions are framed: name the framework, apply it to the case, give numbers and a verdict.</li>
+</ul></div>
+<p class="sub">2025 paper for reference: 3 hours · 100 marks · restricted open book with one A4 sheet.</p>
+
+<div class="tw"><table>
+<tr><th>Section</th><th>Marks</th><th>What they gave</th><th>Frameworks being tested</th></tr>
+<tr><td>I. Financial ratios</td><td>20</td><td>Infosys FY24 numbers (Revenue, Net Profit, Total Assets, Current Assets/Liabilities, Receivables)</td><td>Current ratio, Net profit margin, ROA, Cost-to-income. Each question is <b>compute + interpret vs a benchmark</b>.</td></tr>
+<tr><td>II. Case 1: Horizon Holidays</td><td>25</td><td>Legacy COBOL mainframe, $20M Agentic AI wrapper proposal</td><td>Business case, cost of inaction, technical debt, tangible vs intangible benefits, IRR/ROI, unit-economics maths, risk and human-in-the-loop governance</td></tr>
+<tr><td>Case 2: Apex Intelligence</td><td>25</td><td>AI startup vs OpenAI, Meta Llama, NVIDIA</td><td>Porter's Five Forces, one force per question (supplier power, entry barriers, substitutes, buyer power and switching cost, rivalry and loss leaders)</td></tr>
+<tr><td>Case 3: Bhasha-Setu</td><td>30</td><td>NEP mother-tongue EdTech product</td><td>Kano model, House of Quality (QFD), Hook Model</td></tr>
+</table></div>
+
+<div class="box"><b>How they ask</b>
+<ul>
+<li>Every case question <b>names the framework</b> ("Using the Kano Model…", "Conduct a Five Forces analysis…"). You must <b>apply</b> it to the case, not define it.</li>
+<li>Questions come in pairs: <b>"what is X"</b> and then <b>"so what / is it good"</b>. Always finish with a verdict.</li>
+<li>At least one number per case (e.g. "1M transactions × $12 × 60%"). Show the working.</li>
+<li>"In case of doubt, make appropriate assumptions." <b>State assumptions explicitly</b>; that earns marks.</li>
+<li>The setting is modern tech (AI agents, LLMs, EdTech, UPI). Expect 2026 cases on AI, cloud, vendors, quality failures and startups.</li>
+</ul></div>
+
+<div class="mem"><b>Answer template for every case question: "D-A-N-V"</b><br>
+<b>D</b>efine the framework in one line → <b>A</b>pply it point by point to the case facts (quote them) → <b>N</b>umbers or assumptions (even a rough estimate) → <b>V</b>erdict / recommendation with one risk.<br>
+Use headings and bullets, and draw a table or matrix wherever possible (Kano, QFD, Five Forces, Kraljic). Examiners reward structure.</div>
+
+<div class="box"><b>Closed-book memory kit: learn these hooks cold</b>
+<ul>
+<li><b>Five Forces</b>: "SBENR" = Suppliers, Buyers, Entrants, New substitutes, Rivalry</li>
+<li><b>VRIO</b>: fail at V → disadvantage, R → parity, I → temporary, pass O → sustained</li>
+<li><b>Kano</b>: brakes (Must-be) · mileage (Performance) · sunroof (Delighter)</li>
+<li><b>Hook</b>: Trigger → Action → Variable reward (Tribe/Hunt/Self) → Investment</li>
+<li><b>QFD</b>: WHATs × HOWs, Strong 9 / Medium 3 / Weak 1, Σ importance × score</li>
+<li><b>Kraljic</b>: impact × risk → Leverage, Strategic, Non-critical, Bottleneck</li>
+<li><b>Cost of quality</b>: P-A-I-E, 1-10-100</li>
+<li><b>VUCA</b>: Slack, Info, Structure, Experiment</li>
+<li><b>Lewin</b>: Unfreeze → Change → Refreeze · <b>Dynamic capabilities</b>: Sense → Seize → Transform</li>
+<li><b>7S</b>: 3 hard (Strategy, Structure, Systems) + 4 soft (Staff, Skills, Style, Shared values)</li>
+<li><b>Business case</b>: Exec summary, Problem, Solution, Benefits, CBA, Risk, Plan</li>
+<li><b>Ratios</b>: Current = CA/CL · Net margin = NP/Rev · ROA = NP/TA · ROE = NP/Equity · Cost-to-income = 1 − margin</li>
+</ul>
+Section 12 has all of these on one page. Read it last thing before the exam.</div>
+
+<!-- ================= 1 ================= -->
+<h2 class="sec" id="fin">1. Finance ratios: Section I <span class="tag t3">ASKED 2025</span></h2>
+<p class="sub">Source: Finance 101 (Ruchie Gupta). Last year this was a separate 20-mark section. This year it may come inside a case, so memorise every formula and benchmark below.</p>
+
+<h3>1.1 The three statements in one breath</h3>
+<div class="grid3">
+<div class="card"><b>Income Statement (P&amp;L)</b><br>Profit over a <i>period</i>.<br><span class="f">Revenue − Costs = Profit</span></div>
+<div class="card"><b>Balance Sheet</b><br>Snapshot at a <i>moment</i>.<br><span class="f">Assets = Liabilities + Equity</span></div>
+<div class="card"><b>Cash Flow Statement</b><br>Where cash came from and went: <b>Operating, Investing, Financing</b>.</div>
+</div>
+
+<div class="tw"><table>
+<tr><th>Term</th><th>Plain meaning</th></tr>
+<tr><td>Revenue</td><td>Money from selling goods/services in normal operations</td></tr>
+<tr><td>OpEx</td><td>Running costs (salary, marketing, support). Hits profit now.</td></tr>
+<tr><td>CapEx</td><td>Buying long-life assets (machines, property, capitalised software). Spread over years via depreciation.</td></tr>
+<tr><td>EBITDA</td><td>Revenue − OpEx = operating profit before Interest, Tax, Depreciation, Amortisation. <b>EBITDA margin = EBITDA / Revenue</b>. Slide example: 39/100 = 39%.</td></tr>
+<tr><td>Net Income</td><td>Bottom-line profit after everything</td></tr>
+<tr><td>Free Cash Flow</td><td>Net income ± non-cash items − CapEx. Real cash left to reinvest or return. Slide: 24 + 12 − 8 = 28.</td></tr>
+<tr><td>Assets / Liabilities / Equity</td><td>What you own / what you owe / the owner's stake (capital + retained earnings)</td></tr>
+<tr><td>Burn rate</td><td>Cash used per month. <b>Runway = Cash ÷ monthly burn</b>.</td></tr>
+<tr><td>Budget vs Forecast</td><td>Budget = plan for allocating resources. Forecast = prediction from past + trends.</td></tr>
+</table></div>
+
+<div class="warn"><b>Profit is opinion, cash is fact.</b> A startup can be profitable and still unable to pay salaries if customers pay in 90 days (Idea to Venture slide: cash fell from 50 lakh to 4 lakh while profitable). Growth eats cash. Levers: collect faster, invoice upfront, delay payables, use a credit line, factor receivables.</div>
+
+<h3>1.2 Ratio formula sheet: question → formula → benchmark</h3>
+<div class="tw"><table>
+<tr><th>Exam phrasing</th><th>Ratio</th><th>Formula</th><th>Rule of thumb</th></tr>
+<tr><td>"Can it pay short-term debts?"</td><td>Current ratio</td><td><span class="f">Current Assets / Current Liabilities</span></td><td>&lt;1 risky · 1.5–2 healthy · &gt;3 maybe idle cash</td></tr>
+<tr><td>"Can it pay without selling stock?"</td><td>Quick (acid-test) ratio</td><td><span class="f">(CA − Inventory) / CL</span></td><td>≥1 good</td></tr>
+<tr><td>"Profit kept from every rupee of sales"</td><td>Net profit margin</td><td><span class="f">Net Profit / Revenue</span></td><td>&gt;10% good overall · IT services 15–20% · product software 25%+</td></tr>
+<tr><td>"Margin after direct costs"</td><td>Gross profit margin</td><td><span class="f">(Revenue − COGS) / Revenue</span></td><td>industry-specific</td></tr>
+<tr><td>"How well are assets used to earn?"</td><td>ROA</td><td><span class="f">Net Profit / Total Assets</span></td><td>&gt;5% OK · &gt;10% strong · &gt;15% excellent</td></tr>
+<tr><td>"Return to shareholders"</td><td>ROE</td><td><span class="f">Net Profit / Equity</span></td><td>&gt;15% good</td></tr>
+<tr><td>"Sales generated per ₹ of assets"</td><td>Asset turnover</td><td><span class="f">Revenue / Total Assets</span></td><td>higher = efficient</td></tr>
+<tr><td>"How leveraged?"</td><td>Debt-to-equity</td><td><span class="f">Total Liabilities (or Debt) / Equity</span></td><td>&lt;1 conservative · &gt;2 risky</td></tr>
+<tr><td>"Cost to earn ₹1 of income?"</td><td>Cost-to-income</td><td><span class="f">Total Costs / Revenue</span> = 1 − net margin (if only net profit is given)</td><td>lower = better. &lt;60% excellent (banks) · 80–85% normal for IT services</td></tr>
+<tr><td>"How fast do customers pay?"</td><td>Receivable days (DSO)</td><td><span class="f">Receivables / Revenue × 365</span></td><td>&lt;60 good · &gt;90 slow</td></tr>
+<tr><td>"Operating profitability"</td><td>EBITDA margin</td><td><span class="f">EBITDA / Revenue</span></td><td>20%+ healthy</td></tr>
+</table></div>
+
+<div class="mem"><b>DuPont (the ROE breakdown)</b><br>
+<span class="f">ROE = Net margin × Asset turnover × Leverage = (NI/Sales) × (Sales/Assets) × (Assets/Equity)</span><br>
+Memory hook: <b>"Profit × Speed × Borrowing"</b>. Use it to explain <i>why</i> ROE is high or low.</div>
+
+<h3>1.3 Worked: Infosys FY24 (last year's exact question)</h3>
+<p class="small">Revenue 153,670 · Net Profit 26,248 · Total Assets 137,814 · CA 89,432 · CL 38,794 · Receivables 30,193 (₹ crore)</p>
+<div class="ans"><b>Q1 Liquidity</b><br>
+Current ratio = 89,432 / 38,794 = <b>2.31</b>. Infosys has ₹2.31 of short-term assets for every ₹1 of short-term debt, so it can comfortably pay. Working capital = ₹50,638 cr.<br>
+Stress test: even after removing receivables, (89,432 − 30,193) / 38,794 = <b>1.53</b>, still above 1. An IT firm has almost no inventory, so the quick ratio ≈ the current ratio.<br>
+Interpretation: <b>very strong liquidity</b>, above the 1.5–2 healthy band. It could even be called slightly conservative (cash not deployed). Watch receivables: DSO = 30,193/153,670 × 365 ≈ <b>72 days</b>.</div>
+<div class="ans"><b>Q2 Profitability</b><br>
+Net profit margin = 26,248 / 153,670 = <b>17.1%</b>. It keeps ~₹0.17 from every ₹1 of sales. That is <b>above</b> the general 10% benchmark and in line with or above the IT-services peer band (~15–20%).</div>
+<div class="ans"><b>Q3 Return on assets</b><br>
+ROA = 26,248 / 137,814 = <b>19.0%</b>. It earns ₹19 for every ₹100 of assets. This is well above the 5–10% norm because IT services is <b>asset-light</b> (people, not factories). Asset turnover = 1.12×.</div>
+<div class="ans"><b>Q4 Cost-to-income</b><br>
+Total costs = 153,670 − 26,248 = 127,422 → C/I = 127,422 / 153,670 = <b>82.9%</b>. <i>Assumption: only net profit is given, so all costs incl. tax are counted.</i><br>
+Margins: a 17% net margin is <b>healthy and high for a services business</b>, but not product-software level (25%+), because people costs dominate.</div>
+
+<h3>1.4 Worked: Meridian Retail (slide assignment, good practice)</h3>
+<div class="tw"><table>
+<tr><th>Ratio</th><th>Working</th><th>Answer</th><th>Meaning</th></tr>
+<tr><td>Gross margin</td><td>2,000/5,000</td><td>40%</td><td>decent retail margin</td></tr>
+<tr><td>Net margin</td><td>600/5,000</td><td>12%</td><td>good</td></tr>
+<tr><td>Current ratio</td><td>1,500/500</td><td>3.0</td><td>very liquid</td></tr>
+<tr><td>Quick ratio</td><td>(1,500−500)/500</td><td>2.0</td><td>safe even without inventory</td></tr>
+<tr><td>Debt/Equity</td><td>1,500/2,500 (or debt only 1,150/2,500)</td><td>0.6 (0.46)</td><td>low leverage</td></tr>
+<tr><td>ROE</td><td>600/2,500</td><td>24%</td><td>strong</td></tr>
+<tr><td>ROA</td><td>600/4,000</td><td>15%</td><td>strong</td></tr>
+<tr><td>Asset turnover</td><td>5,000/4,000</td><td>1.25</td><td>DuPont check: 12% × 1.25 × 1.6 = 24% ✓</td></tr>
+</table></div>
+
+<h3>1.5 Valuation methods <span class="tag t1">QUICK</span></h3>
+<div class="tw"><table>
+<tr><th>Method</th><th>Use for</th><th>Weakness</th></tr>
+<tr><td>Asset-based</td><td>Asset-heavy firms (real estate)</td><td>Misses brand/IP</td></tr>
+<tr><td>Market-based (multiples)</td><td>Listed firms with peers</td><td>Needs comparables</td></tr>
+<tr><td>Income-based (DCF)</td><td>Predictable cash flows</td><td>Sensitive to growth and discount-rate assumptions</td></tr>
+<tr><td>Comparable transactions</td><td>M&amp;A-heavy industries</td><td>Needs deal data</td></tr>
+<tr><td>VC method</td><td>Startups</td><td>Subjective</td></tr>
+<tr><td>Option pricing</td><td>High-growth, uncertain firms</td><td>Complex</td></tr>
+</table></div>
+<p class="small">Jersey Mike's example: market cap $7.3bn vs $328m EBITDA ≈ 22× EBITDA multiple → the price assumes a lot of future growth (reverse income statement: "what would have to be true?").</p>
+
+<!-- ================= 2 ================= -->
+<h2 class="sec" id="bcase">2. Business case & investment math <span class="tag t3">ASKED 2025</span></h2>
+<p class="sub">Sources: Finance 101 (Business case, CBA, Cloud &amp; Token economics) and Idea to Venture Part 2.</p>
+
+<h3>2.1 What goes in a business case</h3>
+<div class="grid2">
+<div class="card"><b>Finance 101 components (memorise the order)</b>
+<ol><li>Executive summary</li><li>Problem statement</li><li>Proposed solution</li><li>Benefits analysis (tangible + intangible)</li><li>Cost-benefit analysis (NPV/IRR)</li><li>Risk assessment + mitigation</li><li>Implementation plan (timeline, milestones)</li></ol></div>
+<div class="card"><b>APM five-case model (Idea to Venture)</b>
+<ol><li><b>Strategic</b> case: why change, why now</li><li><b>Economic</b> case: ROI of the options</li><li><b>Commercial</b> case: sourcing/procurement</li><li><b>Financial</b> case: affordability</li><li><b>Management</b> case: governance, roles</li></ol>
+<p class="small">Horizon's paper was structured exactly like this (Strategic → Economic → Risk).</p></div>
+</div>
+<div class="warn"><b>Why business cases fail</b> (good for critique questions): baseline costs hard to estimate · migration costs underestimated · benefits overstated · over-emphasis on money · "pet project" bias · forgotten after approval. Fix: <b>benefits realisation</b>, meaning each benefit gets an owner and is tracked after go-live.</div>
+
+<h3>2.2 Tangible vs intangible benefits</h3>
+<div class="grid2">
+<div class="card"><b>Tangible (count in ₹, hours, units)</b><br>Automation, fewer manual hours, faster month-end close, lower IT maintenance, grow volume without adding staff, lower recruitment/training cost.</div>
+<div class="card"><b>Intangible (real, hard to number; still list them)</b><br>Better customer/user experience, less employee stress/burnout, business agility (launch faster), reputation with regulator, brand.</div>
+</div>
+
+<h3>2.3 Investment metrics</h3>
+<div class="tw"><table>
+<tr><th>Metric</th><th>Formula</th><th>Decision rule</th><th>Catch</th></tr>
+<tr><td>ROI</td><td><span class="f">(Gain − Cost) / Cost</span></td><td>higher better</td><td>ignores time value of money</td></tr>
+<tr><td>Payback</td><td><span class="f">Investment / annual net saving</span></td><td>shorter better</td><td>ignores after-payback cash</td></tr>
+<tr><td>NPV</td><td><span class="f">Σ CF<sub>t</sub>/(1+r)<sup>t</sup> − Investment</span></td><td>NPV &gt; 0 → accept</td><td>r = WACC / hurdle rate</td></tr>
+<tr><td>IRR</td><td>rate at which NPV = 0</td><td>IRR &gt; hurdle rate → accept</td><td>fast early cash flows = higher IRR</td></tr>
+<tr><td>Sensitivity analysis</td><td>change one assumption (e.g. sales −20%)</td><td>how fragile is NPV?</td><td></td></tr>
+<tr><td>Scenario analysis</td><td>optimistic / base / pessimistic with probabilities</td><td>expected value</td><td></td></tr>
+</table></div>
+<p class="small">Slide NPV example: −100,000 now; +3,710, +3,710, +103,710 discounted at 5% → 3,533 + 3,365 + 89,589 − 100,000 = <b>NPV −3,513 → reject</b>.</p>
+
+<div class="box"><b>NPV vs Real Options (very examinable for AI/PoC cases)</b><br>
+Project cost $100M. 25% chance of success (benefit $250M), 75% chance of failure ($30M).<br>
+<b>NPV lens:</b> 0.25×250 + 0.75×30 − 100 = <b>−$15M → reject</b>.<br>
+<b>Option lens:</b> run a pilot first and invest only if it succeeds: 0.25 × max(250−100, 0) + 0.75 × 0 = <b>+$37.5M</b>.<br>
+So a pilot/PoC is worth paying for (up to ~$37.5M + 15M ≈ $52.5M of value difference). <b>Lesson:</b> under uncertainty, stage the investment (pilot → scale). That keeps the option open. "Tomato garden" (Luehrman): some options should be harvested now, some kept to ripen, some never.</div>
+
+<h3>2.4 TCO: total cost of ownership</h3>
+<p><span class="f">TCO = acquisition + ownership (run) + exit</span>. Proposals price only the visible tip.</p>
+<div class="card"><b>TCO of AI is an iceberg</b><br>
+<b>Visible:</b> licences, API tokens, cloud GPUs.<br>
+<b>Hidden:</b> data cleaning/labelling, integration with core systems and security, assurance (evaluation, guardrails, red-teaming, audit), people (engineers, change management, retraining), run costs (monitoring, model drift, upgrades, support).<br>
+Classic TCO list: hardware/software, storage/security, data migration, resources, retraining, change management.</div>
+
+<h3>2.5 Cloud & token economics <span class="tag t2">LIKELY</span></h3>
+<div class="grid2">
+<div class="card"><b>Cloud cost lines:</b> Compute (per hour/request), Storage (per GB/month), Data transfer/egress (most overlooked), Managed services.<br>
+<b>Levers:</b> right-size, auto-scale and shut down idle, reserved/spot pricing, tag and monitor spend.</div>
+<div class="card"><b>Token cost lines:</b> input tokens, output tokens (2–4× pricier), model tier (big model 10–20× cost), context/memory (chat history resent every call).<br>
+<b>Levers:</b> right-size model, cache and reuse, limits and alerts, trim prompts.<br>
+2× conversation length → ~4–5× tokens · RAG → +2–5× tokens per query · token prices fall ~10× every 1–2 years but usage rises faster.</div>
+</div>
+
+<h3>2.6 Make vs buy maths (slide examples)</h3>
+<ul>
+<li><b>Make vs Buy:</b> In-house = $200k capex + (50+30+20) = $100k/yr. Buy = $130k/yr. Making saves $30k/yr → payback 200/30 ≈ <b>6.7 years</b>. Buy unless you need it for &gt;7 years or it is strategic.</li>
+<li><b>New machine:</b> net cost = 350 + 75 − 10 salvage = $415k; savings $40k/yr → payback ≈ <b>10.4 years</b> on savings alone, so the revenue upside (+5% capacity, better quality) must justify it.</li>
+<li><b>App launch:</b> upfront $750k. Margin per user = $0.99 − $0.50 cloud = $0.49/month (before store fees). 50,000 users → $294k/yr → payback ~2.5–3.5 yrs. Cloud cost per user is the key sensitivity.</li>
+</ul>
+
+<!-- Horizon -->
+<h3 id="horizon">2.7 Model answers: 2025 Case 1, Horizon Holidays <span class="tag t3">ASKED 2025</span></h3>
+<div class="box"><b>Concepts you need (not all are on slides, but they were asked)</b>
+<ul>
+<li><b>Technical debt</b>: the hidden "interest" you pay for keeping an old, easy-for-now system: maintenance + slow change + scarce skills.</li>
+<li><b>Cost of Inaction (COI)</b>: what doing nothing costs = running cost + lost revenue (cost of delay) + risk cost.</li>
+<li><b>Sunk cost fallacy</b>: "it's fully depreciated, so it's free" is wrong. Depreciation is an accounting entry; the $15M/yr is real cash.</li>
+<li><b>Strangler Fig / Wrap &amp; Extend</b>: build a new layer around the old system, move functions over piece by piece, and retire the old core later. The opposite is <b>Rip &amp; Replace</b> (big-bang rewrite: high risk, like the TSB migration failure).</li>
+<li><b>Deterministic vs probabilistic</b>: mainframe gives the same answer every time; an LLM can guess (hallucinate).</li>
+<li><b>Human-in-the-loop (HITL)</b>: a human approves or audits AI actions before or after execution.</li>
+</ul></div>
+
+<div class="ans"><b>Q1 Cost of Inaction (4)</b>
+<ul>
+<li>"Costs nothing" is a <b>sunk-cost illusion</b>. Cash cost = <b>$15M/yr</b> just to keep the lights on. That is the technical-debt interest, paid forever, and rising as COBOL talent retires.</li>
+<li><b>Cost of delay:</b> 9 months vs competitors' 2 weeks → ~8.5 months during which ESG-focused corporate clients see a rival offer a Sustainability Score and Horizon cannot. <i>Assume</i> 5% of $300M revenue depends on such features → $15M/yr at risk → 8.5/12 × 15 ≈ <b>$10.6M lost per feature cycle</b>, plus contracts lost in RFPs are lost for multi-year terms.</li>
+<li>COI per year ≈ $15M + ~$10M + attrition cost (Q2) ≈ <b>$25–28M &gt; $20M one-time investment</b>. Doing nothing is the expensive option.</li>
+<li>Strategy link: agility is now a competitive requirement (operational effectiveness). Slow feature speed = lost market share (VUCA: volatility needs slack and speed).</li>
+</ul></div>
+
+<div class="ans"><b>Q2 Talent risk (6)</b>
+<ul>
+<li>Problem: 40% attrition + 6 weeks training on cryptic codes = constant hire-train-lose cycle and lost tacit knowledge.</li>
+<li>How Agentic AI helps: agents type in <b>natural language</b> and the AI translates to mainframe codes → training drops from 6 weeks to ~1 week, the job gets less frustrating (lower attrition), new hires are productive sooner, and AI handles 60% of the routine changes so humans do higher-value work.</li>
+<li><b>Illustrative numbers:</b> 500 agents × 40% = 200 leavers/yr × ~$11k (recruiting $5k + 6 weeks paid training ~$6k) = <b>$2.2M/yr</b>. With AI: attrition 20%, training 1 week → 100 × ~$6k = $0.6M. <b>Saving ≈ $1.6M/yr</b>.</li>
+<li><b>Both, but book them separately:</b> recruitment and training savings are a <b>direct, tangible financial saving</b> (goes in the NPV). Better morale, customer experience and knowledge retention are an <b>operational / intangible benefit</b> (listed, not double-counted).</li>
+<li>Change management: use Lewin's Unfreeze → Change → Refreeze, train champions, and frame AI as the agent's assistant, not their replacement (adaptive challenge, people resist loss).</li>
+</ul></div>
+
+<div class="ans"><b>Q3 ROI of Strangler Fig vs Rip &amp; Replace (5)</b>
+<div class="tw"><table>
+<tr><th></th><th>Rip &amp; Replace</th><th>Wrap &amp; Extend (AI layer)</th></tr>
+<tr><td>Cost / time</td><td>$100M over 5 years</td><td>$20M in 1 year</td></tr>
+<tr><td>Benefits within 3 yrs</td><td><b>Zero</b>. Still building in year 3 (~$60M spent) and still paying $15M/yr maintenance on the old system meanwhile.</td><td>Start in year 2: transaction savings $7.2M (Q4) + training/attrition $1.6M + faster features + reduced change requests on COBOL</td></tr>
+<tr><td>Illustrative cash flows ($M)</td><td>−20, −20, −20, 0 → NPV@10% ≈ −$55M; IRR negative</td><td>−20, +10, +15, +15 → NPV@10% ≈ +$12.8M, <b>IRR ≈ 41%</b></td></tr>
+<tr><td>Risk</td><td>Big-bang migration risk (TSB 2018: £48.65M fine)</td><td>Incremental, reversible; real option to strangle module by module later</td></tr>
+</table></div>
+<b>Maintenance that remains:</b> mainframe hosting/MIPS and licences, a smaller COBOL core team (the mainframe stays the system of record), plus <i>new</i> AI run costs (tokens, monitoring, model upgrades, guardrails; see the TCO iceberg).<br>
+<b>Eliminated or reduced:</b> most new-feature coding in COBOL (built in the AI/API layer instead), green-screen training, manual labour on 60% of transactions, part of the scarce-COBOL premium.<br>
+<b>Why IRR is better:</b> IRR rewards <b>early</b> cash flows and smaller investment. Wrap pays back in ~2 years; Rip pays nothing within the 3-year horizon.</div>
+
+<div class="ans"><b>Q4 Unit economics (4)</b><br>
+AI handles 60% × 1,000,000 = <b>600,000 transactions</b>.<br>
+Gross saving = 600,000 × $12 = <b>$7.2M per year</b>.<br>
+Net of AI cost (assume ~$0.50/transaction in tokens and compute) = 600,000 × 0.50 = $0.3M → <b>net ≈ $6.9M/yr</b>.<br>
+New blended cost/transaction = (400,000 × 12 + 600,000 × 0.5) / 1M = <b>$5.10</b> (down 57.5% from $12).<br>
+Speed: 15 min → 30 sec = 30× faster. Agent time freed = 600,000 × 15 min = 150,000 hours ≈ <b>75 FTEs</b> (at 2,000 hrs/yr), who can be redeployed to complex cases.<br>
+Payback on $20M ≈ 20 / 6.9 ≈ <b>2.9 years</b> from this lever alone.</div>
+
+<div class="ans"><b>Q5 Hallucination risk + HITL governance (6)</b><br>
+<b>Mitigation: make the AI propose and the mainframe decide.</b>
+<ul>
+<li><b>Grounding / read-back check:</b> the AI may only book flights that exist in a live mainframe query. Before confirming, it re-reads the green screen and verifies flight number, date, fare and PNR. Any mismatch → block. This is poka-yoke for AI.</li>
+<li><b>Constrained actions:</b> the AI can only call a whitelist of mainframe commands, with no free-text writes. Read-only by default.</li>
+<li><b>Confidence thresholds:</b> low confidence or high value (e.g. &gt;$5k, VIP, multi-leg international) → route to a human.</li>
+<li><b>Audit trail:</b> every prompt, command and response is logged. Control charts track error rate (common vs special cause).</li>
+<li><b>Staged rollout</b> (CrowdStrike lesson: canary, not big bang) and a <b>kill switch</b>.</li>
+</ul>
+<b>HITL structure for the first 12 months:</b>
+<div class="tw"><table>
+<tr><th>Months</th><th>Mode</th><th>Human role</th></tr>
+<tr><td>0–3</td><td>Shadow mode</td><td>AI suggests, human executes; compare accuracy</td></tr>
+<tr><td>3–6</td><td>Human approves every AI transaction</td><td>"Four-eyes" approval; build accuracy baseline</td></tr>
+<tr><td>6–12</td><td>Autonomous for low-risk changes; 10% random sample audit; high-value always human</td><td>Exception handling + audits</td></tr>
+</table></div>
+Governance: an AI Steering Committee (CSO, CTO, Ops head, Risk/Compliance) meets monthly with KPIs: error rate (target &lt;0.1%, Six Sigma mindset), % auto-handled, customer complaints, rollback count. Named <b>accountable owner</b>, because you can outsource the work but not the accountability. If the AI is from a vendor, the SLA should carry accuracy targets and liability carve-outs.</div>
+
+<!-- ================= 3 ================= -->
+<h2 class="sec" id="strategy">3. Strategy & Porter's Five Forces <span class="tag t3">ASKED 2025</span></h2>
+<p class="sub">Source: "What is your strategy" (Dr. Warudkar, Session 3).</p>
+
+<h3>3.1 What strategy is</h3>
+<ul>
+<li>Strategy = <b>winning</b> through <b>competitive advantage</b>: a unique position from a system of activities across the value chain. It's about <b>doing it differently</b>, not just better. It's about <b>choices and trade-offs</b>.</li>
+<li><b>Porter (1996):</b> operational effectiveness (best practice) is <i>not</i> strategy, because everyone copies it. <b>Strategy is what you choose NOT to do.</b> No trade-off = nothing to defend.</li>
+<li>Competitive advantage = better value than rivals via better quality, convenience or lower price. Value creation = profits = revenue ↑ − costs ↓.</li>
+</ul>
+<div class="mem"><b>Mintzberg's 5 Ps: "Plan, Ploy, Pattern, Position, Perspective"</b>
+<div class="tw"><table>
+<tr><th>P</th><th>Meaning</th><th>Diagnostic question</th></tr>
+<tr><td>Plan</td><td>intended course, decided in advance</td><td>What did we say we'd do?</td></tr>
+<tr><td>Ploy</td><td>a manoeuvre to outwit a rival</td><td>What are we doing to move them?</td></tr>
+<tr><td>Pattern</td><td>consistency in actual behaviour</td><td>What do we actually keep doing?</td></tr>
+<tr><td>Position</td><td>fit between firm and environment</td><td>Where do we stand?</td></tr>
+<tr><td>Perspective</td><td>ingrained way of seeing / culture</td><td>Who do we think we are?</td></tr>
+</table></div>
+<b>Deliberate + Emergent (Mintzberg &amp; Waters):</b> realised strategy = intended plans carried out + patterns that formed unplanned. If plan and spending differ, <b>the pattern is the real strategy</b>.</div>
+
+<h3>3.2 Porter's Five Forces: the full drivers</h3>
+<p>Purpose: how big and defensible is the <b>industry profit pool</b>? Strong forces mean low profit.</p>
+<div class="tw"><table>
+<tr><th>Force</th><th>It's HIGH when…</th></tr>
+<tr><td><b>Supplier power</b></td><td>concentrated suppliers · unique inputs · high switching costs · supplier can forward-integrate</td></tr>
+<tr><td><b>Buyer power</b></td><td>few, large, informed buyers · undifferentiated product · low switching cost · buyer can backward-integrate</td></tr>
+<tr><td><b>Threat of new entrants</b></td><td>low capital needs · no scale economies · no switching costs · no policy/regulatory barrier</td></tr>
+<tr><td><b>Threat of substitutes</b></td><td>attractive price-performance from <i>outside</i> the industry · low switching cost</td></tr>
+<tr><td><b>Rivalry</b></td><td>many equal rivals · high fixed costs · slow growth · high exit barriers · commodity product</td></tr>
+</table></div>
+<div class="box"><b>Refinements the professor stresses</b> (bonus marks)
+<ul>
+<li><b>Define the industry first.</b> The boundary decides the answer (e.g. "foundation-model layer" vs "AI applications").</li>
+<li><b>Industry growth is NOT a force.</b> Fast growth invites entry; it doesn't guarantee profit ("who captures the $44bn?").</li>
+<li><b>Read the direction, not the level.</b> Say where each force is heading (↑/↓).</li>
+<li><b>Limits:</b> government can be a 6th player (regulator + customer + competitor + supplier, as in Indian space); there is no word for <b>complementors</b> (who grow the pie); the model is static; structure doesn't explain why one firm wins (use VRIO for that).</li>
+</ul></div>
+<p class="small">Space case verdict style to copy: "Launch: rivalry HIGH, buyers HIGH, substitutes HIGH → structurally unattractive. Satcom: entry LOW (regulation) but substitutes VERY HIGH (cheap 4G/5G) → attractive on barriers, unattractive on substitutes."</p>
+
+<h3>3.3 Resource-Based View: VRIO <span class="tag t2">LIKELY</span></h3>
+<div class="tw"><table>
+<tr><th>Test</th><th>Question</th><th>If it fails here →</th></tr>
+<tr><td><b>V</b>aluable</td><td>Raises value or cuts cost?</td><td>competitive disadvantage</td></tr>
+<tr><td><b>R</b>are</td><td>Only a few firms have it?</td><td>competitive parity</td></tr>
+<tr><td><b>I</b>nimitable</td><td>Costly to copy/substitute?</td><td>temporary advantage</td></tr>
+<tr><td><b>O</b>rganised</td><td>Is the firm set up to exploit it?</td><td>unused advantage</td></tr>
+</table></div>
+<p>All four → <b>sustained competitive advantage</b>. Hard-to-copy resources are usually <b>socially complex, path-dependent, tacit</b> (e.g. Jersey Mike's franchisee network, Toyota culture), not the product itself.</p>
+
+<h3>3.4 Other strategy tools</h3>
+<div class="grid2">
+<div class="card"><b>Blue Ocean / value innovation</b> <span class="tag t2">LIKELY</span><br>Escape the price war by breaking the value-cost trade-off. <b>ERRC grid: Eliminate, Reduce, Raise, Create.</b> Strategy canvas = a <i>different</i> curve, not a higher one. Weakness: picks success stories after the fact.</div>
+<div class="card"><b>Disruption (Christensen), stated precisely</b><br>Incumbents overshoot their best customers → entrant takes a low-end/new-market foothold (worse on the old metric, better on price/access) → incumbents rationally ignore it → entrant moves upmarket. <b>Not</b> every successful entrant (Uber is not disruptive by Christensen's definition).</div>
+<div class="card"><b>Ecosystems / co-opetition</b><br>Complementors grow the pie (Brandenburger &amp; Nalebuff). Adner: ecosystems carry <b>co-innovation risk</b> and <b>adoption-chain risk</b>.</div>
+<div class="card"><b>Dynamic capabilities (Teece)</b> <span class="tag t2">LIKELY</span><br>Ability to <b>integrate, build, reconfigure</b> competences in fast-changing environments. Three parts: <b>Sensing</b> (spot opportunities and threats) → <b>Seizing</b> (mobilise resources) → <b>Transforming</b> (renew the organisation). Ordinary capabilities = doing things <i>right</i> (easy to copy). Dynamic = doing the <i>right</i> things (hard to copy). Repurposing an organisation is harder than repurposing a technology.</div>
+</div>
+<p class="small">Evolution: 1980s Five Forces (industry decides) → 1990s RBV (VRIN resources decide) → 2000+ Dynamic Capabilities (orchestration under deep uncertainty decides).</p>
+<p class="small">Low-cost airline model: one plane type, point-to-point, one class, no meals or assigned seats. Remember: <b>low cost ≠ low price</b>. Low cost is a structural position; low price is just a tactic.</p>
+
+<!-- Apex -->
+<h3 id="apex">3.5 Model answers: 2025 Case 2, Apex Intelligence (VC deciding) <span class="tag t3">ASKED 2025</span></h3>
+<p class="small">Industry definition: <b>general-purpose foundation-model layer</b>, not AI applications.</p>
+
+<div class="ans"><b>Force 1, Supplier power: VERY HIGH ↑ (Q1, Q2)</b>
+<ul>
+<li><b>Chain of chokepoints:</b> NVIDIA (~80–90% of AI accelerators, plus CUDA software lock-in = huge switching cost) → TSMC (makes nearly all advanced chips and packaging) → AI startups. Every Porter supplier-power driver is present: concentrated, unique input, high switching cost, and forward integration (NVIDIA's own cloud and investments in favoured labs).</li>
+<li>Apex is a tiny buyer: no volume, no leverage. Hyperscalers (Microsoft, Amazon, Google) get allocation first; Apex waits 9 months or signs a cloud deal and becomes dependent on a rival's partner.</li>
+<li><b>Kingmaker?</b> Largely yes in the short term. Whoever gets GPU allocation can train, and whoever can't falls a generation behind. Direction: weakening slowly (AMD MI300, Google TPU, AWS Trainium), but not within Apex's runway.</li>
+<li><b>Margins vs 2015 SaaS:</b> SaaS gross margin ~75–85% because serving one more user costs ~nothing and cloud was a commodity. AI model firms have ~40–60% gross margin because compute is a large COGS (training capex + inference per token). <b>Value is captured by the supplier</b> (NVIDIA's own gross margin is ~75%).</li>
+<li>Kraljic: for Apex, GPUs are a <b>Strategic</b> item (high impact, high risk). They need long-term partnership or a reserved-capacity contract, not spot buying.</li>
+</ul></div>
+
+<div class="ans"><b>Force 2, Threat of new entrants: LOW for the frontier, HIGH for niches (Q3)</b>
+<ul>
+<li><b>Capital moat:</b> frontier training costs $100M+ in compute alone, plus data, talent and scale economies. The garage era is <b>over for frontier foundation models</b>, but alive at the application layer.</li>
+<li>Apex $50M vs OpenAI $10B = 200× less. That isn't even one frontier training run. It <b>cannot realistically win on general model quality</b>.</li>
+<li><b>Pivot to a vertical niche</b> (Porter's focus strategy), e.g. AI for Law in the EU: proprietary legal data, compliance, domain evals, where general models are "good enough" but not trusted.</li>
+<li>Its real VRIO asset is the <b>30% energy-efficient architecture</b>: valuable and rare, but imitable within months, so a temporary advantage. Use it as a cost advantage on inference, or license it.</li>
+</ul></div>
+
+<div class="ans"><b>Force 3, Threat of substitutes: VERY HIGH ↑ (Q4)</b>
+<ul>
+<li>Free open-source models (Llama-4) "almost as good" set a <b>price ceiling</b>: Apex can charge at most the cost of self-hosting a free model plus the hassle of doing so.</li>
+<li>Meta's motive: <b>commoditise the complement</b>. Meta earns from ads, not models, so making models free hurts rivals' pricing power.</li>
+<li><b>Why would anyone still pay Apex?</b> "Free" isn't free (TCO iceberg): GPUs, MLOps engineers, security, monitoring, upgrades. Apex can sell a managed service + SLA + <b>copyright indemnity</b> (the NYT/Getty lawsuits make this valuable) + EU data residency/GDPR + better accuracy in one vertical + lower energy cost per token.</li>
+</ul></div>
+
+<div class="ans"><b>Force 4, Buyer power: HIGH ↑ (Q5)</b>
+<ul>
+<li>LangChain-style tools make models swappable with one line of code. Switching cost ≈ 0, buyers are large and informed, and the product is undifferentiated, so yes, the <b>model layer is commoditising</b>.</li>
+<li><b>Build stickiness (raise switching cost):</b> fine-tune on the customer's own data (asset specificity) · deep workflow integrations and APIs · proprietary evaluation and guardrails tuned to their domain · compliance certifications and EU hosting · copyright and output indemnity · enterprise SLA and support · multi-year volume contracts or outcome-based pricing · data feedback loop that makes the model better for <i>that</i> customer over time (Hook-model "investment").</li>
+</ul></div>
+
+<div class="ans"><b>Force 5, Rivalry: EXTREME ↑ (Q6)</b>
+<ul>
+<li>Microsoft and Google bundle AI into Office/Workspace as a <b>loss leader</b> to protect their core monopolies. They can price at zero indefinitely; Apex can't.</li>
+<li><b>Survival playbook:</b> (1) <b>Don't fight on price</b>. Use Blue Ocean ERRC: eliminate general chat, reduce model size, raise domain accuracy and compliance, create indemnified vertical workflows. (2) Go where Big Tech won't: regulated verticals, <b>sovereign European AI</b>. (3) Be a <b>complementor</b>, not a competitor: sell through Azure/AWS marketplaces (co-opetition). (4) Use the efficiency edge for the lowest cost per token. (5) License the architecture or position as an acquisition target.</li>
+</ul></div>
+
+<div class="ans"><b>VC verdict</b><br>All five forces are high, so the foundation-model layer is <b>structurally unattractive</b> for a $50M entrant (like Indian launch services). <b>Do not invest in the "compete with OpenAI" thesis. Invest only if Apex pivots</b> to a vertical niche or efficiency licensing, with a compute partnership secured upfront.</div>
+
+<!-- ================= 4 ================= -->
+<h2 class="sec" id="ccpd">4. Customer-centric product design <span class="tag t3">ASKED 2025 (30 marks)</span></h2>
+<p class="sub">Source: Customer Centric Product Design (Mahesh Natarajan). This was the biggest case last year.</p>
+
+<h3>4.1 Why customer-centric</h3>
+<div class="grid2">
+<div class="card"><b>Product/Tech-driven (Market PUSH)</b><br>"Cool feature → find customers." High risk, slower to market. Suited to breakthrough projects.</div>
+<div class="card"><b>Customer-centric (Market PULL)</b><br>Start with customer needs → minimal features for adoption. Lower risk, faster. Examples: Heinz upside-down bottle, simple TV remote, Paytm Soundbox (audio confirmation in noisy shops).</div>
+</div>
+<p><b>Innovation triad:</b> <b>Design Thinking</b> (frame the human problem) + <b>Lean Startup</b> (test hypotheses fast, MVP) + <b>Agile</b> (ship small increments). 100% Agile with 0% Design Thinking and 0% Lean = an unguided "feature factory".</p>
+
+<div class="mem"><b>CCPD path (4 steps): "Charter → Insight → Prioritise → QFD"</b>
+<ol>
+<li><b>Program Charter</b>: mission, scope, target market, right customer (tools: segmentation, A3, multi-generation plan)</li>
+<li><b>Customer Insight / VOC</b>: surveys, interviews, focus groups, ethnography, conjoint analysis</li>
+<li><b>Prioritise needs</b>: Affinity diagram → Structured tree → <b>Kano</b></li>
+<li><b>Translate to specs</b>: <b>QFD / House of Quality</b></li>
+</ol></div>
+
+<h3>4.2 Voice of Customer (VOC) methods</h3>
+<div class="tw"><table>
+<tr><th>Method</th><th>Best for</th></tr>
+<tr><td>Lead-user analysis</td><td>front-end innovation, finding opportunities</td></tr>
+<tr><td>Customer advisory council</td><td>B2B feedback, testing use cases with key customers</td></tr>
+<tr><td>Participatory design</td><td>co-developing solutions with customers</td></tr>
+<tr><td>Ethnography (observe in real life)</td><td><b>unarticulated</b> needs, how the product fits daily workflow</td></tr>
+<tr><td>Focus groups / interviews / surveys</td><td>stated needs, testing hypotheses</td></tr>
+</table></div>
+<p><b>Qualitative</b> (why: interviews, ethnography; in-depth but subjective) vs <b>Quantitative</b> (how many: surveys, analytics; objective but lacks context).</p>
+<p><b>Conjoint analysis</b> = "features CONsidered JOINTly". Show realistic bundles and force trade-offs (₹0 fee + no rewards vs ₹10k fee + 5% cashback) to infer what customers truly value (part-worth utilities). Why: when asked directly, people rate everything as "very important" (low discrimination). This gives <b>revealed preference over stated preference</b>.</p>
+<p><b>Affinity diagram</b> = group many raw needs into themes. <b>Structured tree</b> = break a theme into sub-needs. Then <b>Kano</b> to prioritise.</p>
+
+<h3>4.3 Kano Model <span class="tag t3">ASKED 2025</span></h3>
+<div class="tw"><table>
+<tr><th>Category</th><th>If present</th><th>If absent</th><th>How customer voices it</th><th>Example</th></tr>
+<tr><td><b>Must-Be</b> (basic, threshold, hygiene, "Work")</td><td>No extra delight, just expected</td><td><b>Strong dissatisfaction</b></td><td>Unspoken, taken for granted</td><td>Car brakes; app doesn't crash</td></tr>
+<tr><td><b>Performance</b> (one-dimensional, "Sell")</td><td>More = more satisfied (linear)</td><td>Less satisfied</td><td>Spoken, measurable, "more is better"</td><td>Battery life, speed</td></tr>
+<tr><td><b>Delighter</b> (attractive, excitement, "Perk")</td><td><b>Wow</b>, differentiates</td><td><b>No dissatisfaction</b></td><td>Unspoken, unexpected, unknown</td><td>Free samples; first-time features</td></tr>
+<tr><td>Indifferent</td><td>Nobody cares</td><td>Nobody cares</td><td>n/a</td><td>adds cost only</td></tr>
+</table></div>
+<div class="mem"><b>Memory hook: "Must-be = brakes, Performance = mileage, Delighter = sunroof"</b><br>
+Key line: missing a Must-Be <b>kills</b> satisfaction no matter how many delighters you add. Missing a Delighter costs <b>nothing</b>. Delighters decay into Performance and then Must-Be over time. MVP = <b>all Must-Bes + key Performance + maybe one cheap Delighter</b>.</div>
+
+<h3>4.4 QFD / House of Quality <span class="tag t3">ASKED 2025</span></h3>
+<ul>
+<li><b>Purpose:</b> translate vague customer <b>WHATs</b> into measurable technical <b>HOWs</b> <i>before</i> design is locked, which avoids costly redesign later.</li>
+<li><b>Parts of the house:</b> left wall = customer needs (WHATs) + importance (1–5) · ceiling = technical descriptors (HOWs) · middle = <b>relationship matrix</b> · roof = <b>correlations between HOWs</b> (conflict or synergy) · right = competitor comparison · basement = target values + <b>technical importance</b>.</li>
+<li><b>Scoring:</b> Strong = <b>9</b>, Medium = <b>3</b>, Weak = <b>1</b>. Technical importance of a HOW = Σ (need importance × relationship score). <b>Highest score = most critical HOW</b>, the one to protect or invest in first.</li>
+<li>Cascades into 4 houses: customer needs → functional requirements → part characteristics → manufacturing processes → process controls.</li>
+</ul>
+
+<h3>4.5 Hook Model (Nir Eyal) <span class="tag t3">ASKED 2025</span></h3>
+<p class="small">Not on the CCPD slides you have, but it was asked, so learn it.</p>
+<div class="tw"><table>
+<tr><th>Step</th><th>Meaning</th></tr>
+<tr><td><b>1. Trigger</b></td><td>What prompts use. <b>External</b> (notification, message) → later <b>internal</b> (an emotion: anxiety, boredom, curiosity).</td></tr>
+<tr><td><b>2. Action</b></td><td>The simplest behaviour done in anticipation of a reward (one tap). Fogg: Behaviour = Motivation + Ability + Trigger.</td></tr>
+<tr><td><b>3. Variable reward</b></td><td>Unpredictable reward that keeps people coming back. Three types: <b>Tribe</b> (social), <b>Hunt</b> (information/resources), <b>Self</b> (mastery, competence).</td></tr>
+<tr><td><b>4. Investment</b></td><td>User puts something in (data, effort, content) that improves the product and <b>loads the next trigger</b>. This creates switching cost.</td></tr>
+</table></div>
+
+<!-- Bhasha -->
+<h3 id="bhasha">4.6 Model answers: 2025 Case 3, Bhasha-Setu <span class="tag t3">ASKED 2025</span></h3>
+<div class="ans"><b>Q1 Kano categorisation (8)</b>
+<div class="tw"><table>
+<tr><th>Category</th><th>Feature</th><th>Why</th></tr>
+<tr><td><b>Must-Be</b></td><td>5. Offline Mode</td><td>Patchy rural/industrial-town internet. If it doesn't work offline it doesn't work at all, so the teacher abandons it after one failed class. Nobody asks for it; everyone expects it.</td></tr>
+<tr><td><b>Must-Be</b></td><td>1. Textbook Translation</td><td>The core promise of a "language bridge". Without it the product has no reason to exist.</td></tr>
+<tr><td><b>Performance</b></td><td>2. Voice-Over</td><td>More languages and better voice quality = more satisfaction. Vital for Grade 1–5 kids who can't read well and semi-literate parents.</td></tr>
+<tr><td><b>Performance</b></td><td>3. English Echo</td><td>More English exposure = more parent satisfaction (directly answers the "English paradox"). Measurable, spoken need.</td></tr>
+<tr><td><b>Delighter</b></td><td>4. Gamified Badges</td><td>Unexpected fun; nobody is upset if absent. Cheap, so it can go in the MVP.</td></tr>
+<tr><td><b>Delighter</b> (or Indifferent)</td><td>6. VR Field Trips</td><td>Wow factor but expensive hardware and bandwidth; nobody misses it. Not in MVP. Might even be "indifferent" for a teacher who fears distraction.</td></tr>
+</table></div>
+<b>Offline vs VR:</b> Offline is a hygiene factor, so its absence causes <b>total dissatisfaction</b> (the app is useless without connectivity). VR is a delighter, so its absence causes <b>zero</b> dissatisfaction and its presence adds wow.<br>
+<b>Asymmetry:</b> missing a Must-Be cannot be compensated by any number of Delighters. Missing a Delighter costs nothing. <b>MVP = Offline + Translation + Voice-Over + English Echo + Badges</b>. VR goes on the later roadmap.</div>
+
+<div class="ans"><b>Q2 House of Quality (5+4+3+3)</b><br>
+Importance (1–5): Parent "know if learning" = 4 · Teacher "support, not replace / no distraction" = 5 · Student "understand without feeling stupid" = 5.
+<div class="tw"><table>
+<tr><th>Need ↓ / HOW →</th><th>Imp.</th><th>A. WhatsApp API</th><th>B. Local Speech-to-Text</th><th>C. Teacher Dashboard</th><th>D. Multilingual Glossary</th></tr>
+<tr><td>Parent: know if child learns</td><td>4</td><td><b>9 (Strong)</b></td><td>1 (Weak)</td><td>1 (Weak)</td><td>3 (Medium): reports show English terms</td></tr>
+<tr><td>Teacher: support, don't distract</td><td>5</td><td>1 (Weak)</td><td>3 (Medium): no lag in class</td><td><b>9 (Strong)</b>: lock/unlock</td><td>3 (Medium): consistent terms</td></tr>
+<tr><td>Student: understand without shame</td><td>5</td><td>0</td><td><b>9 (Strong)</b>: speak in own tongue, instant</td><td>3 (Medium): teacher sees who struggles</td><td><b>9 (Strong)</b>: right word in Bhojpuri/Kannada/Bengali</td></tr>
+<tr><th>Technical importance</th><th></th><th>4×9+5×1 = <b>41</b></th><th>4+15+45 = <b>64</b></th><th>4+45+15 = <b>64</b></th><th>12+15+45 = <b>72</b></th></tr>
+</table></div>
+<b>Roof (correlations):</b> B ↔ D strongly positive (speech model needs the glossary vocabulary) · C ↔ A positive (dashboard data feeds WhatsApp reports) · B conflicts with low-cost tablets (on-device compute, battery).<br>
+<b>Targets:</b> STT latency &lt;1 s offline · glossary of ~2,000 science terms × 5 languages · WhatsApp report weekly in parent's language (voice note) · screen lock in &lt;2 s.<br>
+<b>Bottleneck = D, the Multilingual Glossary (72).</b> It feeds translation, voice-over, STT vocabulary, English Echo and the parent reports. A wrong word means wrong science in every language: the student fails, the parent gets wrong reports, and the teacher loses trust. B (offline STT) is the close second because it links to the Must-Be Offline Mode.</div>
+
+<div class="ans"><b>Q3 Hook Model for the Parent (4+3)</b>
+<ul>
+<li><b>Trigger:</b> external = a 7 pm WhatsApp voice note in Bhojpuri: "Ravi learned 5 new science words today. Hear him say them in English!" Internal (over time) = the parent's anxiety "is my child falling behind in English?"</li>
+<li><b>Action:</b> one tap to play a 20-second clip. No reading needed (semi-literate friendly), and it runs on the phone they already have.</li>
+<li><b>Variable reward:</b> <i>Self</i> = pride hearing their own child speak English words · <i>Hunt</i> = a different progress snippet each week ("37 English words this month ↑") · <i>Tribe</i> = shareable to the family WhatsApp group, class milestones.</li>
+<li><b>Investment:</b> parent records a 5-second reply ("Shabash!") played to the child next morning, or picks next week's words to practise. This loads the next trigger and builds switching cost.</li>
+</ul>
+<b>Feature loop "Bhasha → English Bridge Card":</b> child answers a science question in Bhojpuri ("paani bhaap ban jaata hai") → app confirms the concept is correct → English Echo says "Evaporation" → child repeats it, and on-device STT scores pronunciation → WhatsApp card to the parent: Bhojpuri praise + the English word + the child's own voice saying it + a running English-word count. <b>Mother-tongue success becomes visible proof of English progress</b>, which resolves the NEP vs market "English paradox".</div>
+
+<!-- ================= 5 ================= -->
+<h2 class="sec" id="quality">5. Quality management <span class="tag t2">LIKELY</span></h2>
+<p class="sub">Source: Quality Management, Session 11. Likely as a case (outage, recall, AI errors) or inside a risk question.</p>
+
+<h3>5.1 Defining quality (Garvin)</h3>
+<div class="grid2">
+<div class="card"><b>5 lenses (1984)</b>
+<ul><li><b>Transcendent</b>: "I know it when I see it" (Taj Hotel)</li><li><b>Product-based</b>: measurable attribute, more is better (megapixels)</li><li><b>User-based</b>: fitness for use (Alto for a first-time buyer)</li><li><b>Manufacturing-based</b>: conformance, right first time (Six Sigma)</li><li><b>Value-based</b>: performance at an acceptable price (Jio, IndiGo)</li></ul></div>
+<div class="card"><b>8 dimensions (1987): compete on a few, not all</b><br>
+<b>P-F-R-C-D-S-A-P:</b> Performance, Features, Reliability, Conformance, Durability, Serviceability, Aesthetics, Perceived quality.<br>
+Mnemonic: "<b>P</b>lease <b>F</b>ind <b>R</b>eal <b>C</b>ustomers <b>D</b>uring <b>S</b>ervice, <b>A</b>lways <b>P</b>leased".</div>
+</div>
+<div class="warn"><b>The 99.9% trap.</b> UPI has ~698M transactions/day. 99.9% success still means ~<b>6.98 lakh failures/day</b>. Six Sigma (3.4 per million) gives ~2,400/day. <b>At scale, 99.9% is a crisis.</b> Use this line in any AI/tech-at-scale answer.</div>
+
+<h3>5.2 The gurus (one line each)</h3>
+<div class="tw"><table>
+<tr><th>Guru</th><th>Big idea</th><th>Tool</th></tr>
+<tr><td>Shewhart</td><td>Variation has common and special causes</td><td>Control chart</td></tr>
+<tr><td>Deming</td><td>~94% of problems belong to the system (management)</td><td>PDCA, 14 points</td></tr>
+<tr><td>Juran</td><td>Quality trilogy: plan, control, improve. Fitness for use.</td><td>Pareto: vital few</td></tr>
+<tr><td>Feigenbaum</td><td>Quality is everyone's job</td><td>Total Quality Control, cost of quality</td></tr>
+<tr><td>Crosby</td><td>"Quality is free". Non-conformance costs.</td><td>Zero defects</td></tr>
+<tr><td>Ishikawa</td><td>Front-line workers can solve problems</td><td>Fishbone, 7 tools, quality circles</td></tr>
+<tr><td>Taguchi</td><td>Any deviation from target is a loss to society</td><td>Loss function, robust design</td></tr>
+</table></div>
+<p><b>Control chart:</b> <i>common cause</i> = random noise within limits → fix the system. <i>Special cause</i> = a point breaks UCL/LCL → investigate that cause. <i>Tampering</i> = reacting to every wiggle makes things worse.</p>
+
+<h3>5.3 Cost of Quality: P-A-I-E <span class="tag t2">LIKELY</span></h3>
+<div class="tw"><table>
+<tr><th>Type</th><th>Meaning</th><th>Non-IT</th><th>IT</th></tr>
+<tr><td><b>Prevention</b></td><td>stop defects being created</td><td>training, FMEA, poka-yoke</td><td>coding standards, threat modelling</td></tr>
+<tr><td><b>Appraisal</b></td><td>find defects before the customer</td><td>inspection, audits</td><td>code review, regression tests, UAT</td></tr>
+<tr><td><b>Internal failure</b></td><td>caught inside</td><td>scrap, rework</td><td>bug fixed before release</td></tr>
+<tr><td><b>External failure</b></td><td>customer finds it</td><td>recall, warranty, lost customers</td><td>outage, SLA penalties, churn</td></tr>
+</table></div>
+<p><b>1-10-100 rule:</b> ₹1 to prevent, ₹10 to catch internally, ₹100 once the customer finds it. Mature firms shift spending <b>left</b> (toward prevention).</p>
+
+<h3>5.4 Toolkits</h3>
+<div class="grid2">
+<div class="card"><b>TQM, 6 principles:</b> customer focus, employee empowerment, leadership commitment, process thinking, continuous improvement (kaizen), fact-based decisions.<br><b>Powell:</b> the tools are copyable; <b>culture, empowerment and leadership commitment</b> are what create advantage.</div>
+<div class="card"><b>Lean / TPS:</b> <b>Jidoka + andon</b> (any worker can stop the line), <b>JIT</b>, <b>Kaizen</b>, <b>Poka-yoke</b> (mistake-proofing).<br>7 wastes, translated to IT: transport = hand-offs · inventory = unreleased code · motion = context switching · waiting = approvals · overproduction = unused features · over-processing = gold-plating · defects = bugs.</div>
+<div class="card"><b>Six Sigma, DMAIC:</b> Define → Measure → Analyse → Improve → Control. 6σ = 3.4 defects per million. 3σ ≈ 66,807 DPMO, 4σ ≈ 6,210, 5σ ≈ 233.</div>
+<div class="card"><b>Ishikawa's 7 tools:</b> fishbone (6M: Methods, Machines, People, Materials, Measurement, Environment), check sheet, histogram, Pareto, control chart, scatter diagram, stratification.<br><b>Pareto</b> example: 3 of 7 complaint categories = 80.6% of complaints, so fix the vital few first.</div>
+<div class="card"><b>Standards:</b> ISO 9001 (7 principles: customer focus, leadership, engagement, process approach, improvement, evidence-based decisions, relationship management). <b>CMMI</b> levels 1 Initial → 2 Managed → 3 Defined → 4 Quantitatively managed → 5 Optimising.</div>
+<div class="card"><b>Digital quality:</b> shift-left testing · <b>DORA 4 keys</b>: deployment frequency, lead time, change failure rate, time to restore · <b>SLO + error budget</b> (99.9%/month = 43 min downtime; budget spent → freeze features) · AI code adoption linked to a 7.2% drop in delivery stability.</div>
+</div>
+<p><b>ServQual (service quality gaps):</b> tangibles, reliability, responsiveness, assurance (competence, courtesy, credibility, security), empathy (access, communication, understanding the customer). Mnemonic <b>RATER</b>.</p>
+
+<h3>5.5 Cases: one-line lessons</h3>
+<ul>
+<li><b>Mumbai dabbawalas</b>: near-zero errors with no IT, through standardisation, colour codes (poka-yoke) and culture.</li>
+<li><b>UPI April 2025 outage</b> (~5 hrs): banks flooded "check status" calls. System quality = the weakest participant's conformance. Fix: rate limits and API SLAs.</li>
+<li><b>Toyota 2009–10 recall</b>: "grew faster than our people". Quality capability scales slowly.</li>
+<li><b>Boeing 737 MAX-9</b>: four bolts never installed. Both appraisal and prevention failed, under culture and schedule pressure.</li>
+<li><b>CrowdStrike 2024</b>: one config update crashed 8.5M machines. Fix: canary/staged rollouts.</li>
+<li><b>Knight Capital 2012</b>: $460M lost in 45 min from one un-updated server and no deployment procedure.</li>
+<li><b>Ranbaxy 2013</b>: data-integrity fraud, $500M. Appraisal you can't trust is worse than none.</li>
+<li>Quality pays: award winners saw +107% operating income growth (Hendricks &amp; Singhal). But "announcing" Six Sigma ≠ capability, and process focus can kill exploration (Benner &amp; Tushman).</li>
+</ul>
+
+<!-- ================= 6 ================= -->
+<h2 class="sec" id="vendor">6. Vendor management & contracts <span class="tag t2">LIKELY</span></h2>
+<p class="sub">Source: Vendor Management and Contracts, Session 7. A natural case topic (Apex and NVIDIA, Horizon's AI vendor, outsourcing).</p>
+
+<h3>6.1 Make, buy or ally? Transaction Cost Economics (Williamson)</h3>
+<p>Three drivers: <b>Asset specificity</b> (investment useless outside this relationship), <b>Uncertainty</b> (hard to specify or measure), <b>Frequency</b>. The higher all three are, the more you move from <b>Market (buy) → Hybrid (ally/JV) → Hierarchy (make)</b>.</p>
+<p class="small">Boeing–Spirit: fuselages = high specificity and quality-critical, so outsourcing struggled and Boeing bought Spirit back for $8.3B (2025). <b>You can outsource the work, not the accountability.</b></p>
+
+<h3>6.2 Kraljic matrix <span class="tag t2">LIKELY</span></h3>
+<div class="tw"><table>
+<tr><th></th><th>Low supply risk</th><th>High supply risk</th></tr>
+<tr><th>High profit impact</th><td><b>Leverage</b>: exploit buying power, tenders, e-auctions (laptops, guards)</td><td><b>Strategic</b>: long-term partner, exec sponsors, plan exit (core banking, cloud, aircraft engines)</td></tr>
+<tr><th>Low profit impact</th><td><b>Non-critical</b>: simplify, automate, catalogues (stationery, housekeeping)</td><td><b>Bottleneck</b>: secure supply, buffer stock, second source (HSMs, certified chip)</td></tr>
+</table></div>
+<p class="small">Test: "How many credible suppliers could replace this one in 90 days?" High spend ≠ strategic.</p>
+
+<h3>6.3 Selection</h3>
+<ul>
+<li><b>Dickson (1966):</b> price ranked only <b>6th</b>, behind quality, delivery, performance history, warranties, capacity.</li>
+<li><b>TCO = acquisition + ownership + exit.</b> Hidden: onboarding, integration, audits, quality failures, downtime, renewal escalation, switching cost (AT&amp;T: $40–50M to leave VMware).</li>
+<li><b>6 steps:</b> define need → RFI → RFP/RFQ → evaluate (weighted scoring; <b>L1</b> lowest bid vs <b>QCBS</b> quality-and-cost) → due diligence → negotiate (know your <b>BATNA</b>) and award.</li>
+<li><b>Winner's curse:</b> a bid far below the others comes back as change requests.</li>
+<li><b>Weighted scoring</b> (hospital cloud slide): CFO weights → Y 7.95, Z 7.05, X 7.0 (low-cost wins). CIO weights → Z 7.75, X 7.55, Y 7.3 (niche wins). <b>The weights decide the winner</b>, so fix them before the bids arrive.</li>
+</ul>
+
+<h3>6.4 Contracts</h3>
+<p><b>Stack:</b> NDA/LOI → <b>MSA</b> (umbrella legal terms: liability, IP, data, termination) → <b>SOW</b> (per project: scope, deliverables, price, acceptance) → schedules (<b>SLA</b>, pricing, security, exit plan) → change requests.</p>
+<div class="card"><b>10 clauses that bite:</b> scope · acceptance · change control · price and payment · service levels · warranties and indemnities · <b>limitation of liability</b> · data/security/IP · subcontracting and change of control · termination and exit.</div>
+<div class="warn"><b>CrowdStrike vs Delta:</b> Delta lost ~$500M but could recover only "single-digit millions", because liability was <b>capped</b> (~12 months' fees) and indirect/consequential losses were <b>excluded</b>. Only the <b>carve-outs</b> (gross negligence, wilful misconduct, data breach, IP indemnity) are uncapped. Lesson: read the liability clause first.</div>
+<p><b>India law quick list:</b> Contract Act s.73 (compensation for natural/foreseen loss only), s.74 (liquidated damages, reasonable up to the stated sum), Specific Relief Amendment 2018, Arbitration Act 1996, MSMED (pay small suppliers within 45 days), DPDP Act 2023 (data fiduciary responsible for its processors).</p>
+
+<h3>6.5 Pricing models: who carries the risk</h3>
+<div class="tw"><table>
+<tr><th>Model</th><th>Risk on</th><th>Best when</th><th>Watch out</th></tr>
+<tr><td>Time &amp; materials</td><td>Buyer</td><td>scope unclear (MVP, R&amp;D)</td><td>no efficiency incentive, so cap it</td></tr>
+<tr><td>Fixed capacity</td><td>Buyer</td><td>steady demand, buyer directs (GCC devs)</td><td>under-use is your cost</td></tr>
+<tr><td>Fixed price / unit rate</td><td>Vendor</td><td>well-defined scope (repaint 40 branches)</td><td>vendor pads risk, change requests</td></tr>
+<tr><td>Outcome / gain-share</td><td>Vendor</td><td>measurable outcome (engines "just work", loan collection %)</td><td>hard to measure, needs trust</td></tr>
+</table></div>
+
+<h3>6.6 SLA design <span class="tag t2">LIKELY CALCULATION</span></h3>
+<p>A good SLA states: <b>metric, measurement method, window, exclusions, target, consequence</b>.</p>
+<p><span class="f">Downtime allowed = (1 − availability) × 720 hrs</span> (30-day month)</p>
+<div class="tw"><table>
+<tr><th>Availability</th><td>99%</td><td>99.5%</td><td>99.9%</td><td>99.95%</td><td>99.99%</td></tr>
+<tr><th>Downtime/month</th><td>7.2 hrs</td><td>3.6 hrs</td><td>43 min</td><td>22 min</td><td>4.3 min</td></tr>
+</table></div>
+<p>Service credits (capped % of fees, with earn-back) · <b>chronic failure</b> = termination right (e.g. 3 consecutive months) · avoid <b>watermelon SLAs</b> (green outside, red inside), so pair them with XLAs (experience measures) · non-IT: OTIF (on time in full).</p>
+
+<h3>6.7 Govern & exit</h3>
+<ul>
+<li>3 tiers: Operational (daily/weekly) → Tactical (monthly service review) → Strategic (quarterly, exec sponsors). Vendor scorecard: quality, SLA, cost accuracy, responsiveness, risk, innovation.</li>
+<li><b>Exit-proofing:</b> buyer renewal options with price caps · change-of-control clause · termination assistance · data in open formats · source-code escrow · tested exit plan · keep a second option alive.</li>
+<li>Regulation: RBI IT outsourcing directions 2023, DPDP 2023, EU DORA 2025. The regulated entity stays accountable.</li>
+</ul>
+<div class="card"><b>Case cards (one line each)</b>
+<ul>
+<li><b>KFC–DHL 2018</b>: switched to a single distribution centre, so the chicken ran out and half the stores closed. Transition is the riskiest phase: pilot, run in parallel, keep the incumbent.</li>
+<li><b>Infosys IT portal 2021</b>: glitches for weeks. Need acceptance criteria, load testing, staged go-live. Milestone payments keep the buyer's leverage.</li>
+<li><b>IndiGo–Pratt &amp; Whitney</b>: 70+ jets grounded. With a bottleneck/strategic supplier, negotiate compensation rather than litigate.</li>
+<li><b>TSB–SABIS 2018</b>: failed migration, £48.65M fine. Regulators judge the buyer; group-company vendors need more governance, not less.</li>
+<li><b>AT&amp;T–VMware</b>: 1,050% price hike after the Broadcom acquisition. Plan the exit on day one.</li>
+<li><b>Toyota–Aisin fire 1997</b>: 99% of brake valves from one supplier. Single-source risk.</li>
+</ul></div>
+<p><b>Negotiation:</b> know your <b>BATNA</b> (best alternative to a negotiated agreement): list alternatives → value each → pick the best → set your walk-away point. For the 5× renewal scenario: use the +7% renewal option, the rival's migration offer and the migration cost as leverage, and target a multi-year deal at ~2–2.5× with price caps and an exit path.</p>
+
+<!-- ================= 7 ================= -->
+<h2 class="sec" id="decision">7. Decision making under uncertainty <span class="tag t2">LIKELY</span></h2>
+<p class="sub">Source: Decision Making Under Uncertainty. Use it in risk, AI-governance and "why did the board resist?" answers.</p>
+<div class="tw"><table>
+<tr><th>Concept</th><th>One-line meaning</th><th>Use in a case when…</th></tr>
+<tr><td><b>Bounded rationality</b> (Simon)</td><td>Humans have limited time, info and brainpower, so they "satisfice" instead of optimising. Not the same as irrational.</td><td>managers can't evaluate everything</td></tr>
+<tr><td><b>Prospect theory</b> (Kahneman &amp; Tversky)</td><td>Losses hurt ~2× more than equal gains. People pick a sure gain over a gamble, but gamble to avoid a sure loss.</td><td>board prefers the "safe" legacy system (status-quo bias)</td></tr>
+<tr><td><b>Groupthink</b> (Janis)</td><td>A cohesive group under stress suppresses dissent (Bay of Pigs, Challenger)</td><td>leadership ignores warning signs</td></tr>
+<tr><td><b>Abilene paradox</b> (Harvey)</td><td>Everyone agrees to something nobody wants because no one speaks up. A failure to manage <i>agreement</i>.</td><td>a project nobody believes in continues</td></tr>
+<tr><td><b>Voice bystander effect</b></td><td>When many people know an issue, each assumes someone else will raise it</td><td>known risks never reach management</td></tr>
+<tr><td><b>Programmed vs non-programmed</b></td><td>Routine with procedures vs novel, ill-structured</td><td>AI suits programmed decisions; humans keep non-programmed ones</td></tr>
+<tr><td><b>Wicked problems</b> (Rittel &amp; Webber)</td><td>Unclear aims and solutions, no risk-free retries (strategy, education policy)</td><td>NEP / social-policy cases</td></tr>
+<tr><td><b>Intuition</b> (Simon)</td><td>= organised patterns from experience (chess grandmasters). Intuition and analysis complement each other.</td><td>expert judgment in HITL</td></tr>
+<tr><td><b>Algorithmic accountability / fairness</b></td><td>UK A-level 2020 algorithm fiasco. Biased training data gives biased models (AI Fairness 360).</td><td>AI deciding about people</td></tr>
+<tr><td><b>Noise</b> (Kahneman)</td><td>Random variability in human judgment (mood, hunger). Algorithms are often better as the final decider.</td><td>argue for AI consistency</td></tr>
+<tr><td><b>Both/And paradox</b> (Smith, Lewis, Tushman)</td><td>today vs tomorrow, boundaries, shareholders vs stakeholders. Hold both, don't pick one.</td><td>exploit vs explore trade-offs</td></tr>
+</table></div>
+<p><b>Manager's roles and skills:</b> Plan, Organise, Lead, Control. Skills: conceptual, human, technical, financial. Pichai: "Leadership is decision making: moving things forward, breaking ties."</p>
+
+<!-- ================= 8 ================= -->
+<h2 class="sec" id="vuca">8. Leadership in a VUCA world <span class="tag t2">LIKELY</span></h2>
+<div class="tw"><table>
+<tr><th>VUCA</th><th>What it is</th><th>Example</th><th>Response</th></tr>
+<tr><td><b>Volatile</b></td><td>unexpected, unstable, but understood</td><td>supplier hit by a disaster, prices swing</td><td><b>Build slack</b>: inventory, extra talent</td></tr>
+<tr><td><b>Uncertain</b></td><td>cause and effect known, outcome unknown</td><td>competitor's product launch</td><td><b>Invest in information</b></td></tr>
+<tr><td><b>Complex</b></td><td>many interconnected variables</td><td>many countries, regulations</td><td><b>Restructure, hire specialists</b></td></tr>
+<tr><td><b>Ambiguous</b></td><td>no precedent, "unknown unknowns"</td><td>new market or new tech outside core</td><td><b>Experiment</b> (hypothesis → test)</td></tr>
+</table></div>
+<div class="mem"><b>Memory hook: "Slack, Info, Structure, Experiment."</b> AI startups (Apex) live in <b>Ambiguous</b>, so the answer is experiments, pilots and real options.</div>
+<ul>
+<li><b>Technical problem</b> (solvable by experts, known procedure) vs <b>adaptive challenge</b> (needs people to change values or habits). People resist <b>loss</b>, not change.</li>
+<li><b>Tipping point leadership</b> (4 hurdles): Cognitive (make people see it: new ways to communicate) · Resource (focus on hot spots, bargain) · Motivational (frame the challenge at each level) · Political (silence internal opponents, isolate external ones). Once a critical mass believes, change spreads like an epidemic.</li>
+<li><b>Goleman's 6 styles</b> (best leaders mix them): Coercive "do what I say" · Authoritative/Visionary "come with me" · Affiliative "people first" · Democratic "what do you think?" · Pacesetting "do as I do, now" · Coaching "try this".</li>
+<li><b>Jobs' lessons:</b> focus (deciding what <i>not</i> to do), simplicity, end-to-end responsibility, leapfrog when behind, products before profits, "customers don't know what they want until shown" (careful with focus groups).</li>
+<li><b>Leadership traits</b> (Kirkpatrick &amp; Locke): drive, motivation to lead, honesty and integrity, self-confidence, cognitive ability, business knowledge. <b>Authentic leadership:</b> know your values, be consistent across life.</li>
+</ul>
+<div class="card"><b>McKinsey 7S</b> <span class="tag t2">LIKELY</span>: use it for "why isn't the strategy happening?"<br>
+<b>Hard:</b> Strategy, Structure, Systems. <b>Soft:</b> Staff, Skills, Style/culture, <b>Shared values</b> (at the centre). All 7 must align. Mnemonic: "<b>3 hard S + 4 soft S, Shared values in the middle</b>".</div>
+
+<!-- ================= 9 ================= -->
+<h2 class="sec" id="mgmt">9. Intro to management: theories <span class="tag t1">QUICK</span></h2>
+<div class="tw"><table>
+<tr><th>Theory / person</th><th>Key idea</th></tr>
+<tr><td>Koontz</td><td>Management = getting things done through and with people</td></tr>
+<tr><td>Drucker</td><td>Purpose of business = <b>create and keep a customer</b></td></tr>
+<tr><td>Taylor (scientific mgmt)</td><td>one best way, efficiency, the system over the worker</td></tr>
+<tr><td>Mayo (Hawthorne)</td><td>human/social factors drive productivity</td></tr>
+<tr><td><b>Lewin's change model</b> <span class="tag t2">LIKELY</span></td><td><b>Unfreeze</b> (create the need) → <b>Change</b> (support the move) → <b>Refreeze</b> (anchor it). Use it for any AI/tech adoption.</td></tr>
+<tr><td>Maslow</td><td>needs pyramid: physiological → safety → belonging → esteem → self-actualisation</td></tr>
+<tr><td>McGregor X/Y</td><td>X: people dislike work, so control them. Y: people self-direct and seek responsibility.</td></tr>
+<tr><td>Senge</td><td>Learning organisation: systems thinking, personal mastery, mental models, shared vision, team learning</td></tr>
+<tr><td>Cyert &amp; March</td><td>Behavioural theory of the firm: decisions come from processes and coalitions</td></tr>
+<tr><td>RBV (Wernerfelt) / VRIO (Barney)</td><td>advantage comes from resources (see 3.3)</td></tr>
+<tr><td>KBV (Grant)</td><td>the firm exists to integrate specialist knowledge</td></tr>
+<tr><td>Friedman vs Freeman</td><td><b>Shareholder</b>: maximise profit within the rules. <b>Stakeholder</b>: create value for customers, employees, suppliers, community, financiers.</td></tr>
+<tr><td>Damodaran's 3 principles</td><td><b>Investment</b> (return &gt; hurdle rate) · <b>Financing</b> (debt/equity mix that matches the assets) · <b>Dividend</b> (return cash if no good projects)</td></tr>
+</table></div>
+<p class="small">CSR (Finance 101): reputation, risk management, employee engagement, investor confidence. <b>Integrated report</b> = financial + social + environmental value creation for all stakeholders (voluntary, long-term view).</p>
+
+<!-- ================= 10 ================= -->
+<h2 class="sec" id="venture">10. Innovation → venture <span class="tag t2">LIKELY</span></h2>
+<div class="grid2">
+<div class="card"><b>Invention vs Innovation</b><br>Invention = creating something new (Spangler's vacuum). Innovation = its <b>successful commercial adoption</b> (Hoover). Innovation = economic application of invention.</div>
+<div class="card"><b>Schumpeter: creative destruction</b><br>New combinations destroy old ways. <b>5 types:</b> new good (iPhone) · new method (Ford assembly line) · new market (Bajaj in Africa) · new source of supply (lab-grown diamonds) · new organisation of the industry (Amul cooperative; UPI open network).</div>
+</div>
+<div class="box"><b>Diffusion of innovation (Rogers) + the Chasm (Moore)</b><br>
+Innovators <b>2.5%</b> → Early adopters <b>13.5%</b> → ‖ <b>CHASM</b> ‖ → Early majority <b>34%</b> → Late majority <b>34%</b> → Laggards <b>16%</b>. Cumulative adoption is an S-curve.<br>
+The chasm: early adopters buy vision, the early majority buys proof, references and complete solutions. Example: Bhasha-Setu must win pragmatic teachers and parents with proof (English progress), not tech novelty.</div>
+<ul>
+<li><b>Open innovation</b> (Chesbrough): outside-in (bring in external ideas) and inside-out (license unused ideas out).</li>
+<li><b>Market timing</b>: first mover vs better late entrant. "The best is the enemy of the good."</li>
+<li><b>8 dimensions where a venture breaks:</b> people, processes, technology, finance, legal, vendor management, quality, design. The course is built around these.</li>
+<li><b>Startup journey:</b> idea → team → structure → fund and register → build (prototype) → launch → scale.</li>
+<li><b>Company structures (India):</b> sole proprietorship (unlimited liability) · partnership (1932 Act) · LLP (2008 Act, limited liability) · Private Ltd (min 2 members; slides say max 50, Companies Act 2013 says 200; no public shares; min capital ₹1 lakh per slide) · Public Ltd (7+ members, public shares).</li>
+<li><b>Knowledge:</b> tacit (know-how, sticky, "we know more than we can tell", Polanyi) vs explicit (know-that, leaks easily). Legacy COBOL experts hold tacit knowledge, which is a risk in Horizon-type cases.</li>
+<li><b>Rethinking cycle</b> (Adam Grant): humility → doubt → curiosity → discovery, versus the overconfidence cycle (pride → conviction → confirmation bias → validation).</li>
+<li><b>Ikigai</b> (love · good at · world needs · paid for) and the <b>T-shaped</b> professional (broad + one deep skill).</li>
+</ul>
+
+<!-- ================= 10b ================= -->
+<h2 class="sec" id="gaps">10b. Gap-fillers: mini-cases and image-only slides</h2>
+<p class="sub">These slides were mostly pictures or quick mini-cases. Each one could become a scenario question.</p>
+
+<h3>ServQual Gap Model (Parasuraman, Zeithaml, Berry) <span class="tag t2">LIKELY</span></h3>
+<div class="tw"><table>
+<tr><th>Gap</th><th>Between…</th><th>Plain meaning / fix</th></tr>
+<tr><td>1. Knowledge gap</td><td>What customers expect vs what management <i>thinks</i> they expect</td><td>Didn't listen. Fix: VOC research, talk to front-line staff.</td></tr>
+<tr><td>2. Standards gap</td><td>Management's perception vs the service specs/standards set</td><td>Right idea, wrong design. Fix: clear, customer-driven standards.</td></tr>
+<tr><td>3. Delivery gap</td><td>Service specs vs service actually delivered</td><td>Staff/systems can't deliver. Fix: training, tools, empowerment.</td></tr>
+<tr><td>4. Communication gap</td><td>Service delivered vs what ads and sales <i>promised</i></td><td>Over-promising. Fix: honest marketing.</td></tr>
+<tr><td><b>5. Customer gap</b></td><td><b>Expected service vs perceived service</b></td><td>The one the customer feels, caused by gaps 1–4.</td></tr>
+</table></div>
+<p class="small">Use it for "great product, poor service" scenarios (the slide title). Five dimensions (RATER): Reliability, Assurance, Tangibles, Empathy, Responsiveness.</p>
+
+<h3>Jersey Mike's: franchise strategy mini-case <span class="tag t2">LIKELY</span></h3>
+<ul>
+<li><b>Model:</b> ~99% franchised, so the company earns royalties and fees, not sandwich revenue. Systemwide sales are $4.3bn, but the franchisor's EBITDA is only ~$328m. <b>Don't confuse systemwide sales with company revenue.</b></li>
+<li><b>Unit economics:</b> $1.4m sales per store (~3× Subway), ~$515k build cost, ~16% store margin, ~42% cash-on-cash return, payback ~2 years. Growth funds itself because franchisees want a second store.</li>
+<li><b>Three lenses on one firm:</b>
+<ul>
+<li><b>Positioning (Porter):</b> differentiated (fresh-sliced, made to order, higher price, slower). The trade-off is that it will never win on speed or price.</li>
+<li><b>Resources (VRIO):</b> the real asset is the self-selected, high-return franchisee network. It is socially complex and path-dependent, so it can't be bought. The sandwich itself is copyable.</li>
+<li><b>Governance (transaction cost economics):</b> centralise brand, standards and supply; leave capital and labour to franchisees. A 16% margin makes cheating on quality irrational (vs 6%).</li>
+</ul></li>
+<li><b>Day of Giving:</b> "shared value" (strategy that also helps society) vs the Crane critique (it's just philanthropy relabelled).</li>
+<li><b>Blackstone buyout to IPO:</b> the business didn't change; only the <b>ownership of the cash flows</b> did. Up-C structure: Blackstone keeps voting control ("controlled company"). The 10× oversubscribed IPO still fell below its issue price on day one, and the category (restaurants) was blamed.</li>
+</ul>
+
+<h3>Indian space sector: Five Forces under regulation</h3>
+<ul>
+<li><b>FDI gradient as deliberate barriers:</b> components 100% automatic (to weaken supplier power), satellites/data 74%, launch vehicles 49% (dual-use sensitivity is an intentional entry barrier).</li>
+<li><b>Government as a 6th force:</b> regulator (IN-SPACe), main customer, competitor (ISRO/NSIL), supplier and financier (₹1,000 cr VC fund) at once.</li>
+<li><b>Prestige ≠ profit pool:</b> 393 foreign satellites launched in a decade earned only a few hundred million dollars in total (about the price of 4–5 commercial heavy-lift missions). Growth to $44bn by 2033 doesn't tell you who captures it.</li>
+</ul>
+
+<h3>Aravind Eye Care / Narayana Health</h3>
+<p>High quality at <b>low cost</b>: huge volume, assembly-line standardised surgery, task-shifting to trained paramedics, surgeons doing only the surgery itself. Lesson: <b>quality and cost can move together</b>; the trade-off is often a design choice. Use it in any "affordable at scale in India" case.</p>
+
+<h3>Pricing (airlines and AI/digital products)</h3>
+<ul>
+<li><b>Airline dynamic pricing (revenue/yield management):</b> price depends on route, seat class, slots left, time of day, season, aircraft, competition and passenger mix. Same seat, different prices by willingness to pay.</li>
+<li><b>AI/digital product pricing options:</b> per-seat subscription · usage/token-based · tiered/freemium · outcome-based. Price has to cover variable compute cost per user (token economics), unlike classic near-zero-cost software.</li>
+</ul>
+
+<h3>McKinsey: Eight Essentials of Innovation</h3>
+<p><b>Aspire</b> (set bold targets) · <b>Choose</b> (pick a portfolio of bets) · <b>Discover</b> (insight into customer, technology, business model) · <b>Evolve</b> (business model, not just product) · <b>Accelerate</b> (beat bureaucracy) · <b>Scale</b> · <b>Extend</b> (use external networks / open innovation) · <b>Mobilise</b> (people and culture). Mnemonic: "<b>A-C-D-E-A-S-E-M</b>".</p>
+
+<h3>From the missing CCPD Part 2 (likely topics; learn the basics)</h3>
+<ul>
+<li><b>MVP (Lean Startup):</b> smallest product that tests the riskiest assumption. Build → Measure → Learn. Pivot or persevere.</li>
+<li><b>Value Proposition Canvas (Osterwalder):</b> customer side = Jobs, Pains, Gains. Product side = Products/services, Pain relievers, Gain creators. "Fit" means the product side addresses the customer side.</li>
+<li><b>Design Thinking stages:</b> Empathise → Define → Ideate → Prototype → Test.</li>
+<li><b>Crossing the Chasm / Innovator's Dilemma / Blue Ocean</b> appear on the reading list, and the guide already covers them.</li>
+</ul>
+
+<h3>Other image-only slides, one line each</h3>
+<ul>
+<li><b>Maslow:</b> physiological → safety → belonging → esteem → self-actualisation (meet lower needs first).</li>
+<li><b>Lean / Toyota Way:</b> respect for people + continuous improvement; see Quality §5.4.</li>
+<li><b>Business case for digital investments (flow):</b> identify metrics → is there a baseline? (if not, create one) → quantify costs → quantify benefits → articulate intangible value.</li>
+<li><b>Open innovation funnel:</b> ideas enter from outside and leave as licences or spin-offs; the funnel is porous.</li>
+<li><b>Market timing:</b> first movers gain brand, scarce resources and switching costs but carry the risk of educating the market; fast followers learn from the pioneer's mistakes.</li>
+</ul>
+
+<!-- ================= 11 ================= -->
+<h2 class="sec" id="which">11. Which framework for which question?</h2>
+<p class="sub">From the professor's model-selection matrix, extended. When a case question comes, find the row.</p>
+<div class="tw"><table>
+<tr><th>If the question asks…</th><th>Use</th></tr>
+<tr><td>Should we enter / invest in this industry?</td><td><b>Five Forces</b> (+ direction arrows, growth ≠ force)</td></tr>
+<tr><td>Why does this firm out-earn rivals? Is the advantage sustainable?</td><td><b>VRIO</b>, core competence</td></tr>
+<tr><td>Why did the advantage disappear? Incumbent being attacked?</td><td><b>Dynamic capabilities</b> (sense/seize/transform), <b>disruption</b></td></tr>
+<tr><td>Build, buy or partner?</td><td><b>Transaction cost economics</b> (specificity, uncertainty, frequency), make-vs-buy maths</td></tr>
+<tr><td>How to escape a price war?</td><td><b>Blue Ocean</b> ERRC, focus/niche</td></tr>
+<tr><td>Who else must succeed for our plan to work?</td><td><b>Ecosystem / complementors</b></td></tr>
+<tr><td>Why isn't the strategy being executed?</td><td><b>7S</b>, Lewin, tipping point</td></tr>
+<tr><td>Justify an investment to the board</td><td><b>Business case</b> (5 cases), NPV/IRR/payback, TCO, tangible/intangible, COI</td></tr>
+<tr><td>Invest under high uncertainty? How much for a PoC?</td><td><b>Real options</b>, pilot first, VUCA "experiment"</td></tr>
+<tr><td>Which features first? MVP?</td><td><b>Kano</b> (+ conjoint for trade-offs)</td></tr>
+<tr><td>Turn customer needs into engineering specs</td><td><b>QFD / House of Quality</b></td></tr>
+<tr><td>Make users come back / build habit</td><td><b>Hook model</b></td></tr>
+<tr><td>Understand needs</td><td><b>VOC methods</b>, ethnography, affinity diagram</td></tr>
+<tr><td>Which supplier needs most attention?</td><td><b>Kraljic</b></td></tr>
+<tr><td>Choose a vendor</td><td>weighted scoring, TCO, Dickson, RFP process, BATNA</td></tr>
+<tr><td>Vendor failed: who pays?</td><td>liability cap, exclusions, carve-outs, SLA credits, exit clauses</td></tr>
+<tr><td>Defects, outages, errors, AI hallucinations</td><td><b>Cost of quality</b>, Six Sigma DMAIC, fishbone, Pareto, control chart, poka-yoke, canary rollout, HITL</td></tr>
+<tr><td>Uncertain/chaotic environment</td><td><b>VUCA</b> responses, adaptive leadership</td></tr>
+<tr><td>Why did the group make a bad decision?</td><td>groupthink, Abilene, bystander, prospect theory, bounded rationality</td></tr>
+<tr><td>Will people adopt it?</td><td><b>Diffusion curve + chasm</b>, Hook model</td></tr>
+<tr><td>Is the company financially healthy?</td><td>ratios (liquidity, profitability, return, leverage), DuPont</td></tr>
+</table></div>
+
+<div class="box"><b>Likely 2026 case themes, and what to reach for</b>
+<ul>
+<li>AI/cloud migration or vendor deal → business case + TCO + Kraljic + SLA + liability + exit plan</li>
+<li>Outage or quality failure (UPI/CrowdStrike style) → fishbone, COQ, Six Sigma, canary, SLA downtime maths</li>
+<li>Startup entering a market → Five Forces + VRIO + Blue Ocean + diffusion/chasm + burn rate/runway</li>
+<li>New product for Indian users → VOC + Kano + QFD + Hook</li>
+<li>Org resisting change → Lewin + 7S + tipping point + VUCA + groupthink</li>
+</ul></div>
+
+<!-- ================= 12 ================= -->
+<h2 class="sec" id="cheat">12. Last-hour revision sheet</h2>
+<p class="sub">Closed book: you can't take this into the hall. Read it as your final revision, and try writing it from memory once to check yourself.</p>
+<div class="cg">
+<div><b>RATIOS</b><ul>
+<li>Current = CA/CL (1.5–2 ok)</li><li>Quick = (CA−Inv)/CL (≥1)</li><li>Net margin = NP/Rev (&gt;10%)</li><li>Gross margin = (Rev−COGS)/Rev</li><li>ROA = NP/TA (&gt;5–10%)</li><li>ROE = NP/Equity (&gt;15%)</li><li>Asset turn = Rev/TA</li><li>D/E = Debt/Equity (&lt;1 safe)</li><li>Cost/Income = Costs/Rev = 1−margin</li><li>DSO = AR/Rev×365</li><li>EBITDA m = EBITDA/Rev</li><li>FCF = NI ± non-cash − CapEx</li><li>DuPont ROE = margin × turnover × A/E</li><li>Runway = cash / burn</li></ul></div>
+<div><b>INVESTMENT</b><ul>
+<li>ROI = (gain−cost)/cost</li><li>Payback = cost/annual saving</li><li>NPV = ΣCF/(1+r)^t − I &gt;0 accept</li><li>IRR: NPV=0 rate &gt; hurdle</li><li>Real option = p × max(V−C,0)</li><li>TCO = buy + run + exit</li><li>Biz case: Exec sum, Problem, Solution, Benefits, CBA, Risk, Plan</li><li>5 cases: Strategic, Economic, Commercial, Financial, Mgmt</li><li>Tangible (₹) vs Intangible (CX, agility)</li><li>COI = run cost + cost of delay + risk</li><li>Unit saving = volume × % × cost/txn</li><li>Downtime = (1−A) × 720h; 99.9% = 43 min</li></ul></div>
+<div><b>STRATEGY</b><ul>
+<li>5 Forces: Supplier, Buyer, Entrant, Substitute, Rivalry. Define industry, growth ≠ force, read direction, govt = 6th, complementors</li><li>VRIO: V→disadv, R→parity, I→temp, O→sustained</li><li>5Ps: Plan Ploy Pattern Position Perspective</li><li>Porter: strategy = trade-offs, what NOT to do</li><li>Blue Ocean ERRC: Eliminate Reduce Raise Create</li><li>Dynamic cap: Sense, Seize, Transform</li><li>Disruption: low-end foothold → upmarket</li><li>TCE: specificity, uncertainty, frequency → buy/ally/make</li></ul></div>
+<div><b>PRODUCT</b><ul>
+<li>Push (tech) vs Pull (customer)</li><li>Design Thinking + Lean + Agile</li><li>Charter → VOC → Prioritise → QFD</li><li>Conjoint = forced trade-offs, revealed preference</li><li>Kano: Must-be (absent = angry), Performance (linear), Delighter (absent = ok), Indifferent</li><li>QFD: WHATs × HOWs, 9/3/1, Σ imp×rel → top = critical; roof = correlations</li><li>Hook: Trigger → Action → Variable reward (Tribe/Hunt/Self) → Investment</li><li>Diffusion 2.5 / 13.5 | chasm | 34 / 34 / 16</li></ul></div>
+<div><b>QUALITY</b><ul>
+<li>Garvin 5 lenses: Transcendent, Product, User, Mfg, Value</li><li>8 dims: Perf, Features, Reliab, Conform, Durab, Service, Aesth, Perceived</li><li>COQ: Prevention, Appraisal, Internal, External; 1-10-100</li><li>DMAIC; 6σ = 3.4 DPMO</li><li>7 tools: fishbone, check sheet, histogram, Pareto, control chart, scatter, stratification</li><li>Common vs special cause; tampering</li><li>Lean: jidoka, JIT, kaizen, poka-yoke; 7 wastes</li><li>DORA 4 keys; SLO error budget</li><li>99.9% × 698M = 6.98 lakh fails</li></ul></div>
+<div><b>VENDOR</b><ul>
+<li>Kraljic: Leverage, Strategic, Non-critical, Bottleneck (impact × risk)</li><li>Dickson: price only #6</li><li>RFI → RFP → evaluate (L1 / QCBS) → diligence → negotiate (BATNA)</li><li>MSA → SOW → SLA</li><li>Liability: cap + exclusions + carve-outs (gross negligence, data, IP)</li><li>Pricing risk: T&amp;M (buyer) → capacity → fixed → outcome (vendor)</li><li>SLA: metric, method, window, exclusions, target, consequence; chronic failure; no watermelon</li><li>Outsource work, not accountability; plan exit day 1</li></ul></div>
+<div><b>DECISIONS</b><ul>
+<li>Bounded rationality (Simon): satisfice</li><li>Prospect theory: losses ≈ 2× gains</li><li>Groupthink (Janis), Abilene (agreement), voice bystander</li><li>Programmed vs non-programmed; wicked problems</li><li>Intuition = organised patterns</li><li>Noise; algorithmic fairness</li><li>Both/And paradox</li></ul></div>
+<div><b>LEADERSHIP / ORG</b><ul>
+<li>VUCA → Slack, Info, Structure, Experiment</li><li>Technical vs adaptive challenge</li><li>Tipping point: Cognitive, Resource, Motivational, Political</li><li>Goleman: Coercive, Authoritative, Affiliative, Democratic, Pacesetting, Coaching</li><li>7S: Strategy Structure Systems | Staff Skills Style + Shared values</li><li>Lewin: Unfreeze → Change → Refreeze</li><li>Theory X / Y; Maslow</li><li>Shareholder (Friedman) vs Stakeholder (Freeman)</li></ul></div>
+<div><b>INNOVATION / VENTURE</b><ul>
+<li>Invention (create) vs Innovation (commercial adoption)</li><li>Schumpeter 5: good, method, market, source, organisation</li><li>Open innovation: outside-in / inside-out</li><li>Profit ≠ cash (90-day receivables)</li><li>Tacit vs explicit knowledge</li><li>Structures: Sole, Partnership, LLP, Pvt (2+, no public), Public (7+)</li><li>Token cost: input, output (2–4×), tier (10–20×), context</li><li><b>Answer: Define → Apply → Numbers → Verdict</b></li></ul></div>
+</div>
+
+<p class="small" style="margin-top:28px">Prepared from: Final Exam 2025 · Finance 101 · Intro to Management · What is your strategy · Decision Making Under Uncertainty · Leadership in a VUCA World · Vendor Management &amp; Contracts · Quality Management · Customer Centric Product Design · From Idea to Venture to You. Model-answer numbers marked "assume" are illustrative assumptions; state them the same way in the exam.</p>
+</main>
+</div>
+<script>
+function printCheat(){document.body.classList.add('cheat-only');window.print();setTimeout(function(){document.body.classList.remove('cheat-only')},500);}
+function toggleTheme(){var r=document.documentElement;var cur=r.getAttribute('data-theme');var dark=cur?cur==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;r.setAttribute('data-theme',dark?'light':'dark');}
+</script>
+</body>
+</html>
